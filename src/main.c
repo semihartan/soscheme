@@ -64,7 +64,8 @@ int main(int argc, char* argv[])
 
     HRESULT hr = S_OK;
    
-    SOS_HALT_IF(FAILED(hr = SosOverlayScheme_Init()));
+    SOS_HALT_IF_FAILED(hr = SosOverlayScheme_Init(),
+        SOS_REPORT_APP_ERROR(););
 
     if (argc == 1)
     {
