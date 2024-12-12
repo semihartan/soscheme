@@ -4,7 +4,7 @@ src/obj/*
 
 res/*.bin
 res/*.res
-res/soscheme.rc
+res/soserrors.rc
 
 vc/.vs
 vc/*.user
