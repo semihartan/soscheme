@@ -126,6 +126,9 @@ $(INCDIR)\soserror.h: $(INCDIR)\soserrors.h
 
 $(INCDIR)\soserrors.h: $(RESDIR)\soserrors.mc
 	mc -c -o -h $(INCDIR)\ -r $(RESDIR)\ $<
+    
+$(RESDIR)\soserrors.rc: $(RESDIR)\soserrors.mc
+	mc -c -o -h $(INCDIR)\ -r $(RESDIR)\ $<
 
 $(OBJDIR)\soscheme.bsc : $(OBJS)
     bscmake /v /n /o $@ $(OBJS:.obj=.sbr)
