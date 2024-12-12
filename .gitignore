@@ -4,7 +4,7 @@ src/obj/*
 
 res/*.bin
 res/*.res
-res/*.rc
+res/soscheme.rc
 
 vc/.vs
 vc/*.user
