@@ -8,3 +8,6 @@ res/*.rc
 
 vc/.vs
 vc/*.user
+vc/debug
+vc/release
+vc/soscheme
