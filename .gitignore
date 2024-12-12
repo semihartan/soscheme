@@ -1,0 +1,10 @@
+bin/*
+
+src/obj/*
+
+res/MSG00409.bin
+res/soscheme.res
+res/soscheme.rc
+
+vc/.vs
+vc/*.user
