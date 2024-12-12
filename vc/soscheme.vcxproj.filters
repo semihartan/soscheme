@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src\commands">
+      <UniqueIdentifier>{b52dbb1f-af51-4465-a556-523fb9d14cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\main.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mod.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\upowr.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\change.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\persistent.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\schemes.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\start.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\set.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\stop.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\oscheme.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sosstring.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\soserror.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pch.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\log.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\dllmain.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Makefile" />
+    <None Include="..\target.mak" />
+    <None Include="..\src\Makefile">
+      <Filter>src</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\change.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\defs.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\framework.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mod.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\oscheme.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\pch.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\persistent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\schemes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\set.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\start.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\stop.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\targetver.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\upowr.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\util.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\res\Resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sosstring.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\soserror.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\osscheme_init.c">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\log.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\res\soscheme.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\include\soserrors.h">
+      <Filter>include</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="soscheme.natvis" />
+  </ItemGroup>
+</Project>

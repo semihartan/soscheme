@@ -1,0 +1,17 @@
+/*
+* Here, some important points:
+* Guids must be surrounded within curly brackets, otherwise GUIDFromStringA/W fails.
+* PowerSetActiveOverlayScheme
+*/
+LPCSTR overlaySchemesHardCodedWin10[] = {
+	"{961cc777-2547-4f9d-8174-7d86181b8a7a}", // Best Power Efficiency
+	"{00000000-0000-0000-0000-000000000000}", // Balanced
+	"{ded574b5-45a0-4f42-8737-46345c09c238}"  // Best Performance
+};
+
+LPCSTR overlaySchemesHardCodedWin11[] = {
+	"{961cc777-2547-4f9d-8174-7d86181b8a7a}", // Better Battery-life Overlay
+	"{00000000-0000-0000-0000-000000000000}", // Balanced Overlay
+	"{3af9b8d9-7c97-431d-ad78-34a8bfea439f}"  // High Performance Overlay
+	"{ded574b5-45a0-4f42-8737-46345c09c238}"  // Max Performance Overlay
+};

@@ -1,0 +1,125 @@
+#include <pch.h>
+
+#include "start.h" 
+
+#include "oscheme.h"
+#include "soserror.h"
+#include "util.h"
+#include "log.h"
+
+#define MSG_APPLICATION_RUNNING     "One instance of the application already exists.\n"
+
+static char s_moduleFilePathBuffer[MAX_PATH];
+static char s_commandLineBuffer[MAX_PATH];
+
+static HANDLE s_hProcessKillEvent = NULL;
+static HANDLE s_hFileMappingObject = NULL;
+
+static STARTUPINFOA s_startupInfo;
+static PROCESS_INFORMATION s_processInfo;
+
+int ProcessCommandStart(int argc, const char* argv[])
+{
+    HRESULT hr;
+    PVOID pSharedMemoryBuffer;
+    const char* persistentSchemeMoniker = argv[2];
+    HMODULE hInstanceHandle;
+    const char* executableFilePath = s_moduleFilePathBuffer;
+    DWORD retSize = 0;
+    char* pgmptr = NULL;
+
+    UNREFERENCED_PARAMETER(argc);
+    
+    // The event handle must be inherited. Read the notes below!!
+    SECURITY_ATTRIBUTES sa;
+    sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+    sa.lpSecurityDescriptor = NULL;
+    sa.bInheritHandle = TRUE;
+
+    s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME);
+   
+    SOS_HALT_IF_NULL(s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME),
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("CreateEventA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        );
+    
+    if (GetLastError() == ERROR_ALREADY_EXISTS)
+    {
+        fputs(MSG_APPLICATION_RUNNING, stderr);
+        return EXIT_SUCCESS;
+    }
+    // When the hFile parameter is INVALID_HANDLE_VALUE, the system allocates a file mapping object
+    // backed by the system swap file.
+    SOS_HALT_IF_NULL(s_hFileMappingObject = CreateFileMappingA(
+        INVALID_HANDLE_VALUE,
+        &sa,
+        PAGE_READWRITE,
+        0,
+        SOS_SHARED_MEMORY_SIZE,
+        SOS_FILE_MAPPING_OBJECT_NAME),
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("CreateFileMappingA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        );
+
+    if (GetLastError() == ERROR_ALREADY_EXISTS)
+    {
+        fputs(MSG_APPLICATION_RUNNING, stderr);
+        return EXIT_SUCCESS;
+    }
+     
+
+    SOS_HALT_IF_NULL(pSharedMemoryBuffer = MapViewOfFile(
+        s_hFileMappingObject, // handle to map object
+        FILE_MAP_ALL_ACCESS,  // read/write permission
+        0,
+        0,
+        SOS_SHARED_MEMORY_SIZE),
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("MapViewOfFile failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        CloseHandle(s_hFileMappingObject);
+        ); 
+
+    strcpy_s((char*)pSharedMemoryBuffer, SOS_SHARED_MEMORY_SIZE, persistentSchemeMoniker);
+    
+    SOS_HALT_IF_NULL(hInstanceHandle = GetModuleHandleA(NULL),
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("GetModuleHandleA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        );
+
+    SOS_HALT_IF((retSize = GetModuleFileNameA(hInstanceHandle, s_moduleFilePathBuffer, MAX_PATH)) <= 0,
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("GetModuleFileNameA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        _get_pgmptr(&pgmptr);
+        executableFilePath = pgmptr;
+        );
+     
+    sprintf_s(s_commandLineBuffer, MAX_PATH, "soscheme persistent %s", persistentSchemeMoniker);
+
+    /*
+    * An important point.
+    * These parameters only have effect when you ask for the CreateProcess function to create a new 
+    * console for the newly created child process. Otherwise, they have no effect.
+    */
+    s_startupInfo.cb = sizeof(s_startupInfo);
+    s_startupInfo.lpDesktop = "WinSta0\\Default";
+    s_startupInfo.lpTitle = "soscheme (Persistancy Mode)";
+    s_startupInfo.dwFlags = STARTF_USESHOWWINDOW;
+    s_startupInfo.wShowWindow = SW_HIDE; 
+
+    // When creating a new child process, it is crucial to specify the bInheriteHandles parameter as 
+    // TRUE. Otherwise, the child process cannot retrieve the event handle and this causes a subtle bug 
+    // in the chiild process causing it being suspended forever.
+    SOS_HALT_IF_NOT(CreateProcessA(executableFilePath, "soscheme persistent", NULL, NULL,
+        TRUE, // Inherit the handles.
+        CREATE_NEW_CONSOLE, // Allocate a new console object for the child.
+        NULL, NULL, &s_startupInfo, &s_processInfo),
+        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_LOG_ERROR("CreateProcessA failed: %s.", SOS_LAST_ERROR_MESSAGE););
+    
+    CloseHandle(s_processInfo.hProcess);
+    CloseHandle(s_processInfo.hThread);
+
+    UnmapViewOfFile(pSharedMemoryBuffer);
+    CloseHandle(s_hFileMappingObject);
+    return EXIT_SUCCESS;
+}

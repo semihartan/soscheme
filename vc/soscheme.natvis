@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <HResult Name="SOS_E_QUERY_SCHEMES">
+    <HRValue>0x60040001L</HRValue>
+    <HRDescription>Failed to query the overlay schemes available on the system.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_REGOPEN">
+    <HRValue>0x60040002L</HRValue>
+    <HRDescription>Failed to open the registry key.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_REGGET">
+    <HRValue>0x60040003L</HRValue>
+    <HRDescription>Failed to get the registry key value.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_GET_SCHEME">
+    <HRValue>0x60040004L</HRValue>
+    <HRDescription>Failed to get the active scheme.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_SET_SCHEME">
+    <HRValue>0x60040005L</HRValue>
+    <HRDescription> Failed to set the active scheme.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_SCHEMEATTR">
+    <HRValue>0x60040006L</HRValue>
+    <HRDescription>Failed to set the scheme attribute.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_UNINITIALIZED">
+    <HRValue>0x60040007L</HRValue>
+    <HRDescription>OverlayScheme_init was not called.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_INVALID">
+    <HRValue>0x60040008L</HRValue>
+    <HRDescription>Invalid scheme or alias.</HRDescription>
+  </HResult>
+  <HResult Name="SOS_E_WIN32">
+    <HRValue>0x60040009L</HRValue>
+    <HRDescription>An internal systen error ocurred.</HRDescription>
+  </HResult>
+</AutoVisualizer>
