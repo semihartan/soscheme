@@ -64,7 +64,7 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 		0,
 		SOS_SHARED_MEMORY_SIZE),
 		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
-		SOS_LOG_ERROR("MapViewOfFile failed: %s.\n", SOS_LAST_ERROR_MESSAGE);
+		SOS_LOG_ERROR("MapViewOfFile failed: %s.", SOS_LAST_ERROR_MESSAGE);
 		CloseHandle(s_hFileMappingObject););
 
 	_tcscpy_s((TCHAR*)s_pSharedMemoryBuffer, SOS_SHARED_MEMORY_SIZE, argv[1]);
