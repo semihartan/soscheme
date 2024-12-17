@@ -69,8 +69,8 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 
 	_tcscpy_s((TCHAR*)s_pSharedMemoryBuffer, SOS_SHARED_MEMORY_SIZE, argv[1]);
 
-	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_SetActiveSchemeByAlias(argv[2]),
-		SOS_REPORT_APP_ERROR();
+	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_SetActiveSchemeByAlias(argv[1]),
+		SOS_REPORT_HR_ERROR();
 		CloseHandle(s_hFileMappingObject););
 	 
 	UnmapViewOfFile(s_pSharedMemoryBuffer); 
