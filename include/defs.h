@@ -32,9 +32,9 @@
 
 #define SOS_SHARED_MEMORY_SIZE	(256 * sizeof(TCHAR))
 
-#if defined(SOS_SHARED_LIB)
+#if defined(SOS_SHARED_TIB)
 #   define SOS_API          __declspec(dllexport)
-#elif defined(SOS_STATIC_LIB) || defined(SOS_EXECUTABLE)
+#elif defined(SOS_STATIC_TIB) || defined(SOS_EXECUTABLE)
 #   define SOS_API          
 #else
 #   define SOS_API          __declspec(dllimport)
@@ -87,6 +87,9 @@
 #define SOS_REPORT_WIN32_ERROR()            printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(SOS_E_WIN32))
 #define SOS_REPORT_HR_ERROR()               printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
 
+#define SOS_IF_ERROR_SUCCESS(x)	            (ERROR_SUCCESS == (x))
+#define SO_IF_TRUE(x)	                    (TRUE == (x))
+
 #define _SOS_HANDLE_ERROR(cond, stm, ret, ...)	    \
 do {                                                \
     if (!(cond)) {		                            \
@@ -95,23 +98,31 @@ do {                                                \
     }                                               \
 } while (0)
 
-#define SOS_RETURN_IF_NOT(cond, ret, ...)   _SOS_HANDLE_ERROR(cond, return, (ret), __VA_ARGS__)
+#define SOS_RETURN_IF_NOT(cond, ret, ...)           _SOS_HANDLE_ERROR((cond), return, (ret), __VA_ARGS__)
 
-#define SOS_RETURN_IF(cond, ret, ...)            SOS_RETURN_IF_NOT(!(cond), (ret), __VA_ARGS__)
-#define SOS_RETURN_IF_NULL(cond, ret, ...)       SOS_RETURN_IF_NOT(NULL != (cond), (ret), __VA_ARGS__)
-#define SOS_RETURN_IF_FALSE(cond, ret, ...)      SOS_RETURN_IF_NOT((cond), (ret), __VA_ARGS__)
-#define SOS_RETURN_IF_FAILED(cond, ret, ...)     SOS_RETURN_IF(FAILED((cond)), (ret), __VA_ARGS__)
+#define SOS_RETURN_IFN_SUCCESS(cond, ret, ...)      SOS_RETURN_IF_NOT(ERROR_SUCCESS == (cond), (ret), __VA_ARGS__)
+#define SOS_RETURN_IF(cond, ret, ...)               SOS_RETURN_IF_NOT(!(cond), (ret), __VA_ARGS__)
+#define SOS_RETURN_IF_NULL(cond, ret, ...)          SOS_RETURN_IF_NOT(NULL != (cond), (ret), __VA_ARGS__)
+#define SOS_RETURN_IF_FALSE(cond, ret, ...)         SOS_RETURN_IF_NOT((cond), (ret), __VA_ARGS__)
+#define SOS_RETURN_IF_FAILED(cond, ret, ...)        SOS_RETURN_IF(FAILED((cond)), (ret), __VA_ARGS__)
+#define SOS_RETURN_IF_SUCCEEDED(cond, ret, ...)     SOS_RETURN_IF(SUCCEEDED((cond)), (ret), __VA_ARGS__) 
 
-#define SOS_HALT_IF_NOT(cond, ...)          _SOS_HANDLE_ERROR(cond, exit, (EXIT_FAILURE), __VA_ARGS__)
+#define SOS_HALT_IF_NOT(cond, ...)                  _SOS_HANDLE_ERROR((cond), exit, (EXIT_FAILURE), __VA_ARGS__)
 
-#define SOS_HALT_IF(cond, ...)              SOS_HALT_IF_NOT(!(cond), __VA_ARGS__)
-#define SOS_HALT_IF_NULL(cond, ...)         SOS_HALT_IF_NOT(NULL != (cond), __VA_ARGS__)
-#define SOS_HALT_IF_FALSE(cond, ...)        SOS_HALT_IF_NOT((cond), __VA_ARGS__)
-#define SOS_HALT_IF_FAILED(cond, ...)       SOS_HALT_IF(FAILED((cond)), __VA_ARGS__)
+#define SOS_HALT_IFN_SUCCESS(cond, ...)             SOS_HALT_IF_NOT(ERROR_SUCCESS == (cond), __VA_ARGS__)
+#define SOS_HALT_IF(cond, ...)                      SOS_HALT_IF_NOT(!(cond), __VA_ARGS__)
+#define SOS_HALT_IF_NULL(cond, ...)                 SOS_HALT_IF_NOT(NULL != (cond), __VA_ARGS__)
+#define SOS_HALT_IF_FALSE(cond, ...)                SOS_HALT_IF_NOT((cond), __VA_ARGS__)
+#define SOS_HALT_IF_FAILED(cond, ...)               SOS_HALT_IF(FAILED((cond)), __VA_ARGS__)
+#define SOS_HALT_IF_SUCCEEDED(cond, ...)            SOS_HALT_IF(SUCCEEDED((cond)), __VA_ARGS__)
+ 
+#define SOS_GOTO_IF_NOT(cond, label, ...)           _SOS_HANDLE_ERROR((cond), goto, label, __VA_ARGS__)
 
-#define SOS_GOTO_IF_NOT(cond, label, ...)       _SOS_HANDLE_ERROR(cond, goto, label, __VA_ARGS__)
-#define SOS_GOTO_IF(cond, label, ...)            SOS_GOTO_IF_NOT(!(cond), label, __VA_ARGS__)
-#define SOS_GOTO_IF_NULL(cond, label, ...)       SOS_GOTO_IF_NOT(NULL != (cond), label, __VA_ARGS__)
-#define SOS_GOTO_IF_FALSE(cond, label, ...)      SOS_GOTO_IF_NOT((cond), label, __VA_ARGS__)
-#define SOS_GOTO_IF_FAILED(cond, label, ...)     SOS_GOTO_IF(FAILED((cond)), label, __VA_ARGS__)
+#define SOS_GOTO_IFN_SUCCESS(cond, label, ...)      SOS_GOTO_IF_NOT(!(cond), label, __VA_ARGS__)
+#define SOS_GOTO_IF(cond, label, ...)               SOS_GOTO_IF_NOT(ERROR_SUCCESS == (cond), label, __VA_ARGS__)
+#define SOS_GOTO_IF_NULL(cond, label, ...)          SOS_GOTO_IF_NOT(NULL != (cond), label, __VA_ARGS__)
+#define SOS_GOTO_IF_FALSE(cond, label, ...)         SOS_GOTO_IF_NOT((cond), label, __VA_ARGS__)
+#define SOS_GOTO_IF_FAILED(cond, label, ...)        SOS_GOTO_IF(FAILED((cond)), label, __VA_ARGS__)
+#define SOS_GOTO_IF_SUCCEEDED(cond, label, ...)     SOS_GOTO_IF(SUCCEEDED((cond)), label, __VA_ARGS__)
+
 #endif 
