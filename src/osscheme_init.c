@@ -73,8 +73,7 @@ HRESULT SosOverlayScheme_Init()
 		// End: Get the friendly name.
 
 		// Begin: Get the description.
-		SOS_RETURN_IF_NOT(
-			SOS_IF_ERROR_SUCCESS(hr = GetPowerSchemeAttribute(hkPowerScheme, _T("Description"), szKeyValueBuffer)),
+		SOS_RETURN_IF_FAILED(hr = GetPowerSchemeAttribute(hkPowerScheme, _T("Description"), szKeyValueBuffer),
 			SOS_E_SCHEMEATTR);
 
 		ctx = NULL;
