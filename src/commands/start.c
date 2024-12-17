@@ -53,6 +53,9 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
 
     UNREFERENCED_PARAMETER(argc);
     
+    if (argc != 2)
+        return EXIT_INVALID_SYNTAX;
+
     // The event handle must be inherited. Read the notes below!!
     SECURITY_ATTRIBUTES sa;
     sa.nLength = sizeof(SECURITY_ATTRIBUTES);
