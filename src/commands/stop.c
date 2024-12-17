@@ -44,7 +44,7 @@ int ProcessCommandStop(int argc, const TCHAR* argv[])
 		SOS_LOG_ERROR("OpenEvent failed: %s.", SOS_LAST_ERROR_MESSAGE););
 
 	SOS_HALT_IF_FALSE(SetEvent(hProcessKillEvent),
-		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+		SOS_REPORT_WIN32_ERROR();
 		SOS_LOG_ERROR("SetEvent failed: %s.", SOS_LAST_ERROR_MESSAGE););
     return 0;
 }
