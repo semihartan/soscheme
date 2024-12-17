@@ -28,6 +28,7 @@
 #define COMMAND_CHANGE_H	1
 
 #include <pch.h>
+
 int ProcessCommandChange(int argc, const TCHAR* argv[]);
 
 #endif
