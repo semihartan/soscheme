@@ -36,7 +36,6 @@
 #include <memory.h>
 
 // #define _CRT_NON_CONFORMING_WCSTOK
-#include <wchar.h>
 #include <tchar.h>
 
 #endif
