@@ -46,11 +46,17 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 	s_hFileMappingObject = OpenFileMapping(
 		FILE_MAP_ALL_ACCESS,	// read/write access
 		FALSE,					// no need to inherit the handle
-		SOS_FILE_MAPPING_OBJECT_NAME),
-		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+		SOS_FILE_MAPPING_OBJECT_NAME);
+
+	SOS_HALT_IF_NULL(s_hFileMappingObject,
+
+		SOS_HALT_IF(ERROR_FILE_NOT_FOUND == GetLastError(),
+			printe("You have to set a permanent scheme before using \"soscheme start\""););
+
 		SOS_REPORT_WIN32_ERROR();
 		SOS_LOG_ERROR("OpenFileMappingA failed: %s.", SOS_LAST_ERROR_MESSAGE););
 
+	
 	SOS_HALT_IF_NULL(s_pSharedMemoryBuffer = MapViewOfFile(
 		s_hFileMappingObject,	// handle to map object
 		FILE_MAP_ALL_ACCESS,	// read/write permission
