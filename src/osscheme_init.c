@@ -42,13 +42,11 @@ HRESULT SosOverlayScheme_Init()
 	* !NOT RELEVANT ANYMORE! This execution path is a part of our main logic. It is a critical path, meaning that if something
 	* fails at any point in it, we should stop immediately.
 	*/
-	SOS_RETURN_IF_NOT(
-		SOS_IF_ERROR_SUCCESS(hr = PowerGetOverlaySchemes(&overlaySchemeGuids, &overlaySchemeCount, 0)),
+	SOS_RETURN_IFN_SUCCESS(hr = PowerGetOverlaySchemes(&overlaySchemeGuids, &overlaySchemeCount, 0),
 		SOS_E_QUERY_SCHEMES,
-		SOS_LOG_ERROR("PowerGetOverlaySchemes failed.\n"););
+		SOS_LOG_ERROR("PowerGetOverlaySchemes failed."););
 
 	SOS_RETURN_IFN_SUCCESS(hr = RegOpenKeyEx(HKEY_LOCAL_MACHINE, POWER_SCHEMES_KEY, 0, KEY_READ, &hkPowerSchemes),
-		SOS_IF_ERROR_SUCCESS(hr = RegOpenKeyW(HKEY_LOCAL_MACHINE, _T(POWER_SCHEMES_KEY), &hkPowerSchemes)),
 		SOS_E_REGOPEN,
 		SOS_LOG_ERROR("RegOpenKeyEx(key=%s) failed: %s.", POWER_SCHEMES_KEY, SOS_LAST_ERROR_MESSAGE););
 
@@ -56,8 +54,7 @@ HRESULT SosOverlayScheme_Init()
 	{
 		GUID* pOverlaySchemeGuid = overlaySchemeGuids + i;
 
-		swprintf(szSubKeyBuffer, SUBKEY_BUFFER_SZ, L"%s\\", SosConvertGuidToString(pOverlaySchemeGuid));
-
+		
 		_stprintf_s(szSubKeyBuffer, SUBKEY_BUFFER_SZ, _T("%s\\"), SosConvertGuidToString(pOverlaySchemeGuid));
 
 		SOS_RETURN_IFN_SUCCESS(hr = RegOpenKeyEx(hkPowerSchemes, szSubKeyBuffer, 0, KEY_READ, &hkPowerScheme),
