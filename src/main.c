@@ -89,11 +89,19 @@ int _tmain(int argc, const TCHAR* argv[])
 #pragma warning(pop)
 
     HRESULT hr = S_OK;
+    int exitCode = EXIT_SUCCESS;
    
     SOS_HALT_IF_FAILED(hr = SosOverlayScheme_Init(),
         SOS_REPORT_APP_ERROR(););
 
     if (argc == 1)
+        return ProcessCommandHelp(argc, argv);
+
+    SOS_HALT_IF_FAILED(hr = SosOverlayScheme_Init(),
+        SOS_REPORT_HR_ERROR(););
+    --argc;
+    ++argv;
+    for (size_t i = 0; i < ARRAYSIZE(commandCallbacks); i++)
     {
         PrintUsage();
         return 0;
@@ -102,9 +110,13 @@ int _tmain(int argc, const TCHAR* argv[])
     {
         if (strcmp(argv[1], command_callback_table[i].command_name) == 0)
         {
-            return command_callback_table[i].callback(argc, argv);
+            exitCode = commandCallbacks[i].callback(--argc, ++argv);
+            break;
         }
     }  
+    if (exitCode == EXIT_INVALID_SYNTAX)
+        return ProcessCommandHelp(argc, argv); 
+
     return EXIT_SUCCESS;
 }
 
