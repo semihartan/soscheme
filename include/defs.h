@@ -50,6 +50,7 @@
 #   define SOS_END         
 #endif
 
+#define EXIT_INVALID_SYNTAX     2
 
 #if defined(UNICODE) || defined(_UNICODE)
 #   ifndef _T
