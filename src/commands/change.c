@@ -40,7 +40,9 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 
 	UNREFERENCED_PARAMETER(argc);
 	
-	SOS_HALT_IF_NULL(s_hFileMappingObject = OpenFileMappingA(
+	if (argc != 2)
+		return EXIT_INVALID_SYNTAX;
+
 	s_hFileMappingObject = OpenFileMapping(
 		FILE_MAP_ALL_ACCESS,	// read/write access
 		FALSE,					// no need to inherit the handle
