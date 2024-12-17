@@ -125,7 +125,25 @@
 //
 // MessageText:
 //
-// An internal systen error ocurred.
+// An internal system error ocurred. Look at the log file for more details.
 //
 #define SOS_E_WIN32                      ((HRESULT)0x60040009L)
+
+//
+// MessageId: SOS_E_INVALID_DIR
+//
+// MessageText:
+//
+// The system cannot find the path specified, or the path is not a directory.
+//
+#define SOS_E_INVALID_DIR                ((HRESULT)0x6004000AL)
+
+//
+// MessageId: SOS_E_CREATE_DIR
+//
+// MessageText:
+//
+// Couldn't create the directory or file.
+//
+#define SOS_E_CREATE_DIR                 ((HRESULT)0x6004000BL)
 
