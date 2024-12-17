@@ -59,29 +59,3 @@ SOS_DEBUG=1
 !ELSE
 SOS_DEBUG=0
 !ENDIF
-
-INCDIR = $(ROOT)\include
-LIBDIR = $(ROOT)\lib\$(SOS_CONFIG)\$(SOS_TARGET_PROCESSOR)
-BINDIR = $(ROOT)\bin\$(SOS_CONFIG)\$(SOS_TARGET_PROCESSOR)
-RESDIR = $(ROOT)\res
-OBJDIR = obj\$(SOS_CONFIG)\$(SOS_TARGET_PROCESSOR)
-
-INCDIRS = $(ROOT)\include
-
-LIBDIRS = \
-$(ROOT)\lib\$(SOS_CONFIG)\x86 \
-$(ROOT)\lib\$(SOS_CONFIG)\x64 \
-$(ROOT)\lib\$(SOS_CONFIG)\arm \
-$(ROOT)\lib\$(SOS_CONFIG)\arm64
-
-BINDIRS = \
-$(ROOT)\bin\$(SOS_CONFIG)\x86 \
-$(ROOT)\bin\$(SOS_CONFIG)\x64 \
-$(ROOT)\bin\$(SOS_CONFIG)\arm \
-$(ROOT)\bin\$(SOS_CONFIG)\arm64
-
-OBJDIRS = \
-obj\$(SOS_CONFIG)\x86 \
-obj\$(SOS_CONFIG)\x64 \
-obj\$(SOS_CONFIG)\arm \
-obj\$(SOS_CONFIG)\arm64 \
