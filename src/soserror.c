@@ -27,7 +27,6 @@
 #include "soserror.h"
 
 #define MESSAGE_BUFFER_SZ	0xFFFF
-#define MESSAGE_BUFFER_SZ	0xFFFF
 
 static TCHAR s_messageBuffer[MESSAGE_BUFFER_SZ + 1];
 
