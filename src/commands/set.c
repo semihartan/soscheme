@@ -35,7 +35,9 @@ int ProcessCommandSet(int argc, const TCHAR* argv[])
 	HRESULT hr;
 	UNREFERENCED_PARAMETER(argc);
 
-	const char* alias = argv[2];
+	if (argc != 2)
+		return EXIT_INVALID_SYNTAX;
+
 	const TCHAR* alias = argv[1];
 
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_SetActiveSchemeByAlias(alias),
