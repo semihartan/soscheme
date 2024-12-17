@@ -27,6 +27,6 @@
 #ifndef COMMAND_START_H
 #define COMMAND_START_H		1
 
-int ProcessCommandStart(int argc, const char* argv[]);
+int ProcessCommandStart(int argc, const TCHAR* argv[]);
 
 #endif

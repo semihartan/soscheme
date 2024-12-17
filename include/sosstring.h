@@ -38,7 +38,7 @@ typedef const wchar_t* sosstring_t;
 
 //sosstring_t sosstring_new(const wchar_t* _CStr);
 
-const wchar_t* sosstring_ContainsStrings(const wchar_t* _String, int _CountStrings, ...);
+const TCHAR* sosstring_ContainsStrings(const TCHAR* _String, size_t _CountStrings, ...);
 
 SOS_END
 

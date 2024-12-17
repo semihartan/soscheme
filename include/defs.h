@@ -27,10 +27,10 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-#define SOS_FILE_MAPPING_OBJECT_NAME "Global\\soscheme_FileMappingObject"
-#define SOS_PROCESS_KILL_EVENT_NAME "Global\\soscheme_ProcessKillEvent"
+#define SOS_FILE_MAPPING_OBJECT_NAME _T("Global\\soscheme_FileMappingObject")
+#define SOS_PROCESS_KILL_EVENT_NAME _T("Global\\soscheme_ProcessKillEvent")
 
-#define SOS_SHARED_MEMORY_SIZE	256
+#define SOS_SHARED_MEMORY_SIZE	(256 * sizeof(TCHAR))
 
 #if defined(SOS_SHARED_LIB)
 #   define SOS_API          __declspec(dllexport)
@@ -50,19 +50,23 @@
 
 
 #if defined(UNICODE) || defined(_UNICODE)
-#   define __L(x)       L##x    
-#   define _L(x)      __L(x)    
-#   define fprintf(a, b, ...)	    fwprintf(a, _L(b), __VA_ARGS__)
-#   define fputs(a, b)	            fputws(_L(a), b)
-#   define puts(a)	                fputws(_L(a) _L("\n"), stdout)
-#   define printf(a, ...)	        wprintf(_L(a), __VA_ARGS__)
-#   define printe(a, ...)	        fwprintf(stderr, _L(a) _L("\n"), __VA_ARGS__)
+#   ifndef _T
+#       define __T(x)       L##x    
+#       define _T(x)      __T(x)
+#   endif
+#   define fprintf(a, b, ...)	    fwprintf(a, _T(b), __VA_ARGS__)
+#   define fputs(a, b)	            fputws(_T(a), b)
+#   define puts(a)	                fputws(_T(a) _T("\n"), stdout)
+#   define printf(a, ...)	        wprintf(_T(a), __VA_ARGS__)
+#   define printe(a, ...)	        fwprintf(stderr, _T(a) _T("\n"), __VA_ARGS__)
 #else
-#   define _L(x)       x
+#   ifndef _T
+#       define _T(x)       x
+#   endif
 #   define fprintf(a, b, ...)	    fprintf(a, b, __VA_ARGS__)
 #   define fputs(a, b)	            fputs(a, b) 
 #   define printf(a, ...)	        printf(a, __VA_ARGS__)
-#   define printe(a, ...)	        fprintf(stderr, a _L("\n"), __VA_ARGS__)
+#   define printe(a, ...)	        fprintf(stderr, a _T("\n"), __VA_ARGS__)
 #endif
 
 #ifdef NDEBUG

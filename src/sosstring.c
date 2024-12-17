@@ -38,23 +38,23 @@
 //	return cstr;
 //}
 
-const wchar_t* sosstring_ContainsStrings(const wchar_t* _String, int _CountStrings, ...)
+const TCHAR* sosstring_ContainsStrings(const TCHAR* _String, size_t _CountStrings, ...)
 {
 	va_list ap;
-	wchar_t* ret = NULL;
+	TCHAR* ret = NULL;
 
-	SOS_RETURN_IF_NULL(ret = _wcsdup(_String), ret);
+	SOS_RETURN_IF_NULL(ret = _tcsdup(_String), ret);
 
-	wchar_t* strLowerCase = _wcslwr(ret);
+	TCHAR* strLowerCase = _tcslwr(ret);
 	va_start(ap, _CountStrings);
 	for (size_t i = 0; i < _CountStrings; i++)
 	{
-		const wchar_t* str = va_arg(ap, wchar_t*);
+		const TCHAR* str = va_arg(ap, wchar_t*);
 
-		SOS_RETURN_IF_NULL(ret = _wcsdup(str), ret);
+		SOS_RETURN_IF_NULL(ret = _tcsdup(str), ret);
 		
-		wchar_t* lowerCase = _wcslwr(ret);
-		if ((ret = wcsstr(strLowerCase, lowerCase), free(lowerCase), ret))
+		TCHAR* lowerCase = _tcslwr(ret);
+		if ((ret = _tcsstr(strLowerCase, lowerCase), free(lowerCase), ret))
 			break;
 	}
 	free(strLowerCase);

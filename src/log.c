@@ -26,16 +26,18 @@
 
 #include "log.h"
 
-#define LOG_FILE_NAME		L"soscheme.log"
+#define LOG_FILE_NAME		_T("soscheme.log")
 
-void SosLog(const wchar_t* _File, const wchar_t* _Function, uint32_t _Line, const wchar_t* _Format, ...)
+void SosLog(const TCHAR* _File, const TCHAR* _Function, uint32_t _Line, const TCHAR* _Format, ...)
 {
-	FILE* logFile = _wfopen(LOG_FILE_NAME, L"a, ccs=UTF-16LE");
+	static TCHAR timeBuffer[26];
 	const wchar_t* fileName = wcsrchr(_File, L'\\');
 	fwprintf(logFile, L"%s(%u), %s: ", ++fileName, _Line, _Function);
+	FILE* logFile = _tfopen(LOG_FILE_NAME, _T("a, ccs=UTF-16LE"));
+	const TCHAR* fileName = _tcsrchr(_File, _T('\\'));
 	va_list ap;
 	va_start(ap, _Format);
-	vfwprintf_s(logFile, _Format, ap);
+	_vftprintf_s(logFile, _Format, ap);
 	va_end(ap);
 	fclose(logFile);
 }

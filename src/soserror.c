@@ -28,18 +28,16 @@
 
 #define MESSAGE_BUFFER_SZ	0xFFF
 
-static WCHAR s_messageBuffer[MESSAGE_BUFFER_SZ + 1];
+static TCHAR s_messageBuffer[MESSAGE_BUFFER_SZ + 1];
 
-static const wchar_t* GetErrorMessageCore(HRESULT _ErrorCode, bool _isSystem)
+const TCHAR* SosGetErrorMessage(HRESULT _ErrorCode)
 {
-	DWORD cbChars = FormatMessageW(_isSystem ?
-		FORMAT_MESSAGE_FROM_HMODULE :
-		FORMAT_MESSAGE_FROM_HMODULE,
+	DWORD cbChars = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_FROM_HMODULE,
 		NULL,
 		_ErrorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		s_messageBuffer,
 		MESSAGE_BUFFER_SZ + 1, NULL);
-	return cbChars == 0 ? L"FormatMessage failed." : s_messageBuffer;
+	return cbChars == 0 ? _T("FormatMessage failed.") : s_messageBuffer;
 }
 
 const wchar_t* SosGetSystemErrorMessage(DWORD dwErrorCode)

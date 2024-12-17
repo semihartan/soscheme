@@ -29,12 +29,14 @@
 #include "soserror.h"
 #include "util.h"
 
-int ProcessCommandSet(int argc, const char* argv[])
+//"set <scheme>            Set the overlay scheme to <scheme>. <scheme> is\n"
+int ProcessCommandSet(int argc, const TCHAR* argv[])
 {
 	HRESULT hr;
 	UNREFERENCED_PARAMETER(argc);
 
 	const char* alias = argv[2];
+	const TCHAR* alias = argv[1];
 
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_SetActiveSchemeByAlias(alias),
 		SOS_REPORT_APP_ERROR(););

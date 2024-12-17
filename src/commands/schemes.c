@@ -31,6 +31,7 @@
 #include "util.h"
 
 int ProcessCommandSchemes(int argc, const char* argv[])
+int ProcessCommandSchemes(int argc, const TCHAR* argv[])
 {
 	HRESULT hr = S_OK;
 	size_t count = 0;
@@ -60,7 +61,7 @@ int ProcessCommandSchemes(int argc, const char* argv[])
 
 		printf("  \"friendlyName\":  \"%s\",\n", os.friendlyName);
 		printf("  \"description\":  \"%s\",\n", os.description);
-		printf("  \"isActive\":  %s,\n", isActive ? _L("true") : _L("false"));
+		printf("  \"isActive\":  %s,\n", isActive ? _T("true") : _T("false"));
 		puts("},");
 	}
 	puts("]");

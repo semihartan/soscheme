@@ -28,5 +28,6 @@
 #define COMMAND_PERSISTENT_H	1
 
 int ProcessCommandPersistent(int argc, const char* argv[]);
+int ProcessCommandPersistent(int argc, const TCHAR* argv[]);
 
 #endif

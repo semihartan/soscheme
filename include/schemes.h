@@ -26,6 +26,6 @@
 #ifndef COMMAND_SCHEMES_H
 #define COMMAND_SCHEMES_H		1
 
-int ProcessCommandSchemes(int argc, const char* argv[]);
+int ProcessCommandSchemes(int argc, const TCHAR* argv[]);
 
 #endif

@@ -41,18 +41,21 @@
 typedef BOOL(WINAPI GUIDFromString_ft)(_In_ LPCSTR szGuid, _Out_ LPGUID pGuid);
 
 
-typedef int (ProcessCommandProc_t)(int argc, const char* argv[]);
+typedef int (ProcessCommandProc_t)(int argc, const TCHAR* argv[]);
  
 static struct {
-    const char* command_name;
+    const TCHAR* name;
+    const TCHAR* alias;
     ProcessCommandProc_t* callback;
-} command_callback_table[] = {
-     "schemes", ProcessCommandSchemes,
-     "set", ProcessCommandSet,
-     "start", ProcessCommandStart,
-     "change", ProcessCommandChange,
-     "stop", ProcessCommandStop,
-     "persistent", ProcessCommandPersistent,
+} commandCallbacks[] = {
+     __T("--help"), __T("-h"), ProcessCommandHelp,
+     __T("schemes"), __T(""), ProcessCommandSchemes,
+     __T("set"),  __T(""), ProcessCommandSet,
+     __T("start"),  __T(""), ProcessCommandStart,
+     __T("change"),  __T(""), ProcessCommandChange,
+     __T("stop"),  __T(""), ProcessCommandStop,
+     __T("install"),  __T(""), ProcessCommandInstall,
+     __T("persistent"),  __T(""), ProcessCommandPersistent,
 };
  
 static void PrintUsage();
@@ -72,8 +75,7 @@ static void PrintUsage();
  * soscheme persistent start <scheme>
  * soscheme persistent stop
  */
-
-int main(int argc, char* argv[])
+int _tmain(int argc, const TCHAR* argv[])
 {
 #pragma warning(push)
 #pragma warning(disable: 4996)

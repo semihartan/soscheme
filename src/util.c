@@ -48,7 +48,7 @@ void SosPrintGuid(const GUID* const pGuid)
 
 #pragma warning(disable:4431)
 
-const wchar_t* SosConvertGuidToString(const GUID* const _guid)
+const TCHAR* SosConvertGuidToString(const GUID* const _guid)
 {
 	static OLECHAR guidStringBuffer[GUID_BUFFER_SZ];
 	// Convert the GUID into string. 
@@ -57,5 +57,14 @@ const wchar_t* SosConvertGuidToString(const GUID* const _guid)
 	// Trim the curly braces.
 	wmemcpy(guidStringBuffer, (const wchar_t*)(guidStringBuffer + 1), GUID_WO_BRACES_SZ);
 	guidStringBuffer[GUID_WO_BRACES_SZ] = L'\0';
-	return (const wchar_t*)guidStringBuffer;
+
+#if !defined(UNICODE) && !defined(_UNICODE)
+	SOS_RETURN_IF(
+		0 < WideCharToMultiByte(CP_ACP, 0, guidStringBuffer, -1, (LPSTR)guidStringBuffer, GUID_BUFFER_SZ * sizeof(WCHAR), NULL, NULL),
+		NULL,
+		SOS_LOG_ERROR("WideCharToMultiByte failed."); 
+	);
+#endif // !defined(UNICODE) && !defined(_UNICODE)
+
+	return (const TCHAR*)guidStringBuffer;
 }

@@ -12,9 +12,9 @@ SOS_BEGIN
 
 typedef struct OverlayScheme_s
 {
-	WCHAR friendlyName[OS_NAME_BUF_SZ];
-	WCHAR description[OS_NAME_BUF_SZ];
-	const WCHAR* alias;
+	TCHAR friendlyName[OS_NAME_BUF_SZ];
+	TCHAR description[OS_NAME_BUF_SZ];
+	const TCHAR* alias;
 	GUID guid;
 }OverlayScheme_t;
 
@@ -28,7 +28,7 @@ SOS_API HRESULT SosOverlayScheme_SetActiveScheme(const OverlayScheme_t* _scheme)
 
 SOS_API HRESULT SosOverlayScheme_SetActiveSchemeByGuid(const GUID* _guid);
 
-SOS_API HRESULT SosOverlayScheme_SetActiveSchemeByAlias(const wchar_t* _schemeMoniker);
+SOS_API HRESULT SosOverlayScheme_SetActiveSchemeByAlias(const TCHAR* _schemeMoniker);
 
 SOS_END
 

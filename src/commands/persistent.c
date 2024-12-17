@@ -34,8 +34,8 @@
 #pragma comment(lib, "powrprof.lib")
 
 static bool s_isPersistentSchemeSet = FALSE;
-static const char* s_previousSchemeMoniker = NULL;
-static const char* s_persistentSchemeMoniker = NULL;
+static const TCHAR* s_previousSchemeMoniker = NULL;
+static const TCHAR* s_persistentSchemeMoniker = NULL;
 
 static HANDLE s_hFileMappingObject = NULL;
 static PVOID s_pSharedMemoryBuffer = NULL;
@@ -44,7 +44,7 @@ static void* s_effectiveModeChangeNotificationHandle = NULL;
 static void __stdcall EffectiveModeChangeCallback(_In_ EFFECTIVE_POWER_MODE Mode, _In_opt_ VOID* Context);
 static void DoCleanUp();
 
-int ProcessCommandPersistent(int argc, const char* argv[])
+int ProcessCommandPersistent(int argc, const TCHAR* argv[])
 {
 	HRESULT hr;
 	OverlayScheme_t* activeScheme = NULL;
@@ -53,17 +53,17 @@ int ProcessCommandPersistent(int argc, const char* argv[])
 	UNREFERENCED_PARAMETER(argc);
 	UNREFERENCED_PARAMETER(argv);
 
-	SOS_HALT_IF_NULL(hProcessKillEvent = OpenEventA(EVENT_ALL_ACCESS,
+	SOS_HALT_IF_NULL(hProcessKillEvent = OpenEvent(EVENT_ALL_ACCESS,
 		FALSE, SOS_PROCESS_KILL_EVENT_NAME),
 		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
-		SOS_LOG_ERROR("OpenEventA failed: %s.\n", SOS_LAST_ERROR_MESSAGE););
+		SOS_LOG_ERROR("OpenEvent failed: %s.\n", SOS_LAST_ERROR_MESSAGE););
 
-	SOS_HALT_IF_NULL(s_hFileMappingObject = OpenFileMappingA(
+	SOS_HALT_IF_NULL(s_hFileMappingObject = OpenFileMapping(
 		FILE_MAP_ALL_ACCESS,   // read/write access
 		FALSE,                 // do not inherit the name
 		SOS_FILE_MAPPING_OBJECT_NAME),
 		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
-		SOS_LOG_ERROR("OpenFileMappingA failed: %s.\n", SOS_LAST_ERROR_MESSAGE););
+		SOS_LOG_ERROR("OpenFileMapping failed: %s.\n", SOS_LAST_ERROR_MESSAGE););
 	 
 	SOS_HALT_IF_NULL(s_pSharedMemoryBuffer = MapViewOfFile(
 		s_hFileMappingObject, // handle to map object
@@ -80,7 +80,7 @@ int ProcessCommandPersistent(int argc, const char* argv[])
 		SOS_LOG_ERROR("PowerRegisterForEffectivePowerModeNotifications failed: %s.",
 		SOS_HR_ERROR_MESSAGE(hr));); 
 
-	s_persistentSchemeMoniker = (const char*)s_pSharedMemoryBuffer; 
+	s_persistentSchemeMoniker = (const TCHAR*)s_pSharedMemoryBuffer;
 
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_GetActiveScheme(&activeScheme),
 		SOS_REPORT_APP_ERROR();
@@ -115,7 +115,7 @@ static void __stdcall EffectiveModeChangeCallback(_In_ EFFECTIVE_POWER_MODE _Mod
 	UNREFERENCED_PARAMETER(_Context);
 	if (!s_isPersistentSchemeSet)
 		return;
-	s_persistentSchemeMoniker = (const char*)s_pSharedMemoryBuffer;
+	s_persistentSchemeMoniker = (const TCHAR*)s_pSharedMemoryBuffer;
 	//printf("[DEBUG] persistent scheme: %s.\n", persistentSchemeMoniker);
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_SetActiveSchemeByAlias(s_persistentSchemeMoniker),
 		SOS_REPORT_APP_ERROR();

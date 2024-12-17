@@ -25,10 +25,10 @@
 HRESULT SosOverlayScheme_Init()
 {
 #define SUBKEY_BUFFER_SZ		MAX_PATH
-	static WCHAR szSubKeyBuffer[SUBKEY_BUFFER_SZ];
-	static WCHAR szKeyValueBuffer[OS_NAME_BUF_SZ];
-	static wchar_t friendlyName[OS_NAME_BUF_SZ];
-	static wchar_t description[OS_NAME_BUF_SZ];
+	static TCHAR szSubKeyBuffer[SUBKEY_BUFFER_SZ];
+	static TCHAR szKeyValueBuffer[OS_NAME_BUF_SZ];
+	static TCHAR friendlyName[OS_NAME_BUF_SZ];
+	static TCHAR description[OS_NAME_BUF_SZ];
 
 	GUID* overlaySchemeGuids = NULL;
 	DWORD overlaySchemeCount = 0;
@@ -47,10 +47,10 @@ HRESULT SosOverlayScheme_Init()
 		SOS_E_QUERY_SCHEMES,
 		SOS_LOG_ERROR("PowerGetOverlaySchemes failed.\n"););
 
-	SOS_RETURN_IF_NOT(
+	SOS_RETURN_IFN_SUCCESS(hr = RegOpenKeyEx(HKEY_LOCAL_MACHINE, POWER_SCHEMES_KEY, 0, KEY_READ, &hkPowerSchemes),
 		SOS_IF_ERROR_SUCCESS(hr = RegOpenKeyW(HKEY_LOCAL_MACHINE, _T(POWER_SCHEMES_KEY), &hkPowerSchemes)),
 		SOS_E_REGOPEN,
-		SOS_LOG_ERROR("RegOpenKeyW(key=%s) failed: %s.\n", _T(POWER_SCHEMES_KEY), SOS_LAST_ERROR_MESSAGE););
+		SOS_LOG_ERROR("RegOpenKeyEx(key=%s) failed: %s.", POWER_SCHEMES_KEY, SOS_LAST_ERROR_MESSAGE););
 
 	for (size_t i = 0; i < overlaySchemeCount; ++i)
 	{
@@ -58,45 +58,47 @@ HRESULT SosOverlayScheme_Init()
 
 		swprintf(szSubKeyBuffer, SUBKEY_BUFFER_SZ, L"%s\\", SosConvertGuidToString(pOverlaySchemeGuid));
 
-		SOS_RETURN_IF_NOT(SOS_IF_ERROR_SUCCESS(hr = RegOpenKeyW(hkPowerSchemes, szSubKeyBuffer, &hkPowerScheme)),
+		_stprintf_s(szSubKeyBuffer, SUBKEY_BUFFER_SZ, _T("%s\\"), SosConvertGuidToString(pOverlaySchemeGuid));
+
+		SOS_RETURN_IFN_SUCCESS(hr = RegOpenKeyEx(hkPowerSchemes, szSubKeyBuffer, 0, KEY_READ, &hkPowerScheme),
 			SOS_E_REGOPEN,
-			SOS_LOG_ERROR("RegOpenKeyW(key=%s) failed: %s.\n", szSubKeyBuffer, SOS_LAST_ERROR_MESSAGE););
+			SOS_LOG_ERROR("RegOpenKeyEx(key=%s) failed: %s.", szSubKeyBuffer, SOS_LAST_ERROR_MESSAGE););
 
 		// Begin: Get the friendly name.
-		SOS_RETURN_IF_NOT(
-			SOS_IF_ERROR_SUCCESS(hr = GetPowerSchemeAttribute(hkPowerScheme, L"FriendlyName", szKeyValueBuffer)), SOS_E_SCHEMEATTR);
+		SOS_RETURN_IFN_SUCCESS(hr = GetPowerSchemeAttribute(hkPowerScheme, _T("FriendlyName"), szKeyValueBuffer), 
+			SOS_E_SCHEMEATTR);
 
-		wchar_t seps[] = L",";
-		wchar_t* ctx = NULL;
-		wcstok_s(szKeyValueBuffer, seps, &ctx);	// Skip to the rightmost item.
-		wcstok_s(NULL, seps, &ctx);	// Skip to the rightmost item.
-		wcscpy_s(friendlyName, OS_NAME_BUF_SZ, wcstok_s(NULL, seps, &ctx));
+		TCHAR seps[] = _T(",");
+		TCHAR* ctx = NULL;
+		_tcstok_s(szKeyValueBuffer, seps, &ctx);	// Skip to the rightmost item.
+		_tcstok_s(NULL, seps, &ctx);	// Skip to the rightmost item.
+		_tcscpy_s(friendlyName, OS_NAME_BUF_SZ, _tcstok_s(NULL, seps, &ctx));
 		// End: Get the friendly name.
 
 		// Begin: Get the description.
 		SOS_RETURN_IF_NOT(
-			SOS_IF_ERROR_SUCCESS(hr = GetPowerSchemeAttribute(hkPowerScheme, L"Description", szKeyValueBuffer)),
+			SOS_IF_ERROR_SUCCESS(hr = GetPowerSchemeAttribute(hkPowerScheme, _T("Description"), szKeyValueBuffer)),
 			SOS_E_SCHEMEATTR);
 
 		ctx = NULL;
-		wcstok_s(szKeyValueBuffer, seps, &ctx);	// Skip to the rightmost item.
-		wcstok_s(NULL, seps, &ctx);	// Skip to the rightmost item.
-		wcscpy_s(description, OS_NAME_BUF_SZ, wcstok_s(NULL, seps, &ctx));
+		_tcstok_s(szKeyValueBuffer, seps, &ctx);	// Skip to the rightmost item.
+		_tcstok_s(NULL, seps, &ctx);	// Skip to the rightmost item.
+		_tcscpy_s(description, OS_NAME_BUF_SZ, _tcstok_s(NULL, seps, &ctx));
 		// End: Get the description.
 
 		if (sosstring_ContainsStrings(friendlyName, 2, PERFORMANCE_KEYWORDS))
 		{
-			wcscpy_s(s_overlaySchemes[2].friendlyName, OS_NAME_BUF_SZ, friendlyName);
-			wcscpy_s(s_overlaySchemes[2].description, OS_NAME_BUF_SZ, description);
-			s_overlaySchemes[2].alias = L"performance";
+			_tcscpy_s(s_overlaySchemes[2].friendlyName, OS_NAME_BUF_SZ, friendlyName);
+			_tcscpy_s(s_overlaySchemes[2].description, OS_NAME_BUF_SZ, description);
+			s_overlaySchemes[2].alias = _T("performance");
 			memcpy_s(&s_overlaySchemes[2].guid, sizeof(GUID), pOverlaySchemeGuid, sizeof(GUID));
 		}
 
 		if (sosstring_ContainsStrings(friendlyName, 4, POWER_SAVER_KEYWORDS))
 		{
-			wcscpy_s(s_overlaySchemes[0].friendlyName, OS_NAME_BUF_SZ, friendlyName);
-			wcscpy_s(s_overlaySchemes[0].description, OS_NAME_BUF_SZ, description);
-			s_overlaySchemes[0].alias = L"powersaver";
+			_tcscpy_s(s_overlaySchemes[0].friendlyName, OS_NAME_BUF_SZ, friendlyName);
+			_tcscpy_s(s_overlaySchemes[0].description, OS_NAME_BUF_SZ, description);
+			s_overlaySchemes[0].alias = _T("powersaver");
 			memcpy_s(&s_overlaySchemes[0].guid, sizeof(GUID), pOverlaySchemeGuid, sizeof(GUID));
 		}
 		RegCloseKey(hkPowerScheme);
