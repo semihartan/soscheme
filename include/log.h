@@ -21,29 +21,25 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-
-#if defined(SOS_STATIC_LIB) || defined(SOS_SHARED_LIB)
-#	define SOS_LOG(msg, ...)			(void)0 
-#	define SOS_LOG_ERROR(msg, ...)		(void)0 
-#else
-
 #pragma once
 
 #ifndef SOS_LOG_H
 #define SOS_LOG_H
 
-#include <pch.h>
-
-#define SOS_SHARED_LIB
-
 #if defined(SOS_STATIC_LIB) || defined(SOS_SHARED_LIB)
 #	define SOS_LOG(msg, ...)			(void)0 
 #	define SOS_LOG_ERROR(msg, ...)		(void)0 
 #else
-#	define SOS_LOG(msg, ...)			SosLog(__FILEW__, __FUNCTIONW__, __LINE__, msg, __VA_ARGS__)
-#	define SOS_LOG_ERROR(msg, ...)		SOS_LOG(L"[Error] " _L(msg) _L("\n"), __VA_ARGS__)
-#endif
 
-void SosLog(const wchar_t* _File, const wchar_t* _Function, uint32_t _Line, const wchar_t* _Format, ...);
+#include <pch.h>
+
+#define SOS_LOG(msg, ...)			SosLog(_T(__FILE__), _T(__FUNCTION__), __LINE__, msg, __VA_ARGS__)
+
+// Don't put a new-line char at the end.
+#define SOS_LOG_ERROR(msg, ...)		SOS_LOG(_T("[Error] ") _T(msg) _T("\n"), __VA_ARGS__)
+
+void SosLog(const TCHAR* _File, const TCHAR* _Function, uint32_t _Line, const TCHAR* _Format, ...);
+
+#endif
 
 #endif                                                                                                                                                                                                                                                                                                                                        
