@@ -39,8 +39,10 @@ int ProcessCommandStop(int argc, const TCHAR* argv[])
 	UNREFERENCED_PARAMETER(argv);
 
 	SOS_HALT_IF_NULL(hProcessKillEvent = OpenEvent(EVENT_ALL_ACCESS, FALSE, SOS_PROCESS_KILL_EVENT_NAME),
-		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
-		SOS_LOG_ERROR("OpenEventA failed: %s.", SOS_LAST_ERROR_MESSAGE););
+
+		SOS_HALT_IF(ERROR_FILE_NOT_FOUND == GetLastError(),
+			printe("You have to set a permanent scheme before using \"soscheme start\""););
+		SOS_REPORT_WIN32_ERROR();
 		SOS_LOG_ERROR("OpenEvent failed: %s.", SOS_LAST_ERROR_MESSAGE););
 
 	SOS_HALT_IF_FALSE(SetEvent(hProcessKillEvent),
