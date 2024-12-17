@@ -103,13 +103,9 @@ int _tmain(int argc, const TCHAR* argv[])
     ++argv;
     for (size_t i = 0; i < ARRAYSIZE(commandCallbacks); i++)
     {
-        PrintUsage();
-        return 0;
-    }
-    for (size_t i = 0; i < ARRAYSIZE(command_callback_table); i++)
+        if (_tcscmp(argv[0], commandCallbacks[i].name) == 0 ||
+            _tcscmp(argv[0], commandCallbacks[i].alias) == 0)
     {
-        if (strcmp(argv[1], command_callback_table[i].command_name) == 0)
-        {
             exitCode = commandCallbacks[i].callback(--argc, ++argv);
             break;
         }
