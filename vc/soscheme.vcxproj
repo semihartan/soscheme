@@ -113,77 +113,79 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>_DEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>_DEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>_DEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>_DEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake </NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>NDEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>NDEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>NDEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <NMakeOutput>..\bin\$(Configuration)\$(Platform)\soscheme.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>NDEBUG;UNICODE;_UNICODE;_CONSOLE;WIN32_LEAN_AND_MEAN</NMakePreprocessorDefinitions>
-    <NMakeBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean &amp;&amp; nmake</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>SET SOS_TARGET_PROCESSOR=$(PlatformTarget)&amp;&amp; SET SOS_CONFIG=$(Configuration)&amp;&amp; cd ..&amp;&amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>cd ..&amp;&amp; build.bat build --arch=$(PlatformTarget) --config=$(Configuration)</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>cd ..&amp;&amp; build.bat rebuild --arch=$(PlatformTarget) --config=$(Configuration)</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>cd ..&amp;&amp; build.bat clean --arch=$(PlatformTarget) --config=$(Configuration)</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>..\include;..\res;$(PublicIncludeDirectories)</NMakeIncludeSearchPath>
     <AdditionalOptions>/TC</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\src\commands\change.c" />
+    <ClCompile Include="..\src\commands\help.c" />
+    <ClCompile Include="..\src\commands\install.c" />
     <ClCompile Include="..\src\commands\persistent.c" />
     <ClCompile Include="..\src\commands\schemes.c" />
     <ClCompile Include="..\src\commands\set.c" />
@@ -195,10 +197,12 @@
     <ClCompile Include="..\src\mod.c" />
     <ClCompile Include="..\src\oscheme.c" />
     <ClCompile Include="..\src\soserror.c" />
+    <ClInclude Include="..\include\help.h" />
+    <ClInclude Include="..\include\install.h" />
     <ClInclude Include="..\include\log.h" />
     <ClInclude Include="..\src\osscheme_init.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|amd64'">true</ExcludedFromBuild>
-      <FileType>CppCode</FileType>
+      <FileType>CCode</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClCompile Include="..\src\pch.c" />
@@ -207,6 +211,7 @@
     <ClCompile Include="..\src\util.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\res\soserrors.mc" />
     <None Include="..\src\Makefile" />
     <None Include="..\Makefile" />
     <None Include="..\target.mak" />

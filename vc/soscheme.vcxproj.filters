@@ -66,12 +66,21 @@
     <ClCompile Include="..\src\dllmain.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\commands\help.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\commands\install.c">
+      <Filter>src\commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Makefile" />
     <None Include="..\target.mak" />
     <None Include="..\src\Makefile">
       <Filter>src</Filter>
+    </None>
+    <None Include="..\res\soserrors.mc">
+      <Filter>res</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\include\log.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\help.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\install.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

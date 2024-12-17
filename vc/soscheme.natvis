@@ -36,4 +36,8 @@
     <HRValue>0x60040009L</HRValue>
     <HRDescription>An internal systen error ocurred.</HRDescription>
   </HResult>
+  <HResult Name="SOS_E_INVALID_DIR">
+    <HRValue>0x6004000AL</HRValue>
+    <HRDescription>The system cannot find the path specified, or the path is not a directory.</HRDescription>
+  </HResult>
 </AutoVisualizer>
