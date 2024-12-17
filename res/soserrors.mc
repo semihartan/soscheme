@@ -84,6 +84,21 @@ Severity=Error
 Facility=FACILITY_ITF
 SymbolicName=SOS_E_WIN32
 Language=English
-An internal systen error ocurred.
+An internal system error ocurred. Look at the log file for more details.
 .
 
+MessageId=0xA
+Severity=Error
+Facility=FACILITY_ITF
+SymbolicName=SOS_E_INVALID_DIR
+Language=English
+The system cannot find the path specified, or the path is not a directory.
+.
+
+MessageId=0xB
+Severity=Error
+Facility=FACILITY_ITF
+SymbolicName=SOS_E_CREATE_DIR
+Language=English
+Couldn't create the directory or file.
+.
