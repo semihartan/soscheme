@@ -124,10 +124,10 @@
 extern void* AuxErrorData;
 
 /**
- * @brief Retrieves the last error message formatted from the GetLastError() WinAPI function using FormatMessageW.
- * @return The descriptive WINAPI error message.
+ * @brief Retrieves the error message for applicataion-defined or system-defined error code, formatted using FormatMessageW.
+ * @return The descriptive error message.
  */
-const wchar_t* SosGetSystemErrorMessage(DWORD dwErrorCode);
+const TCHAR* SosGetErrorMessage(HRESULT _ErrorCode);
 
 /**
  * @brief Retrieves the error message for applicataion-defined error code, formatted using FormatMessageW.
