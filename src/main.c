@@ -114,15 +114,4 @@ int _tmain(int argc, const TCHAR* argv[])
         return ProcessCommandHelp(argc, argv); 
 
     return EXIT_SUCCESS;
-}
-
-static void PrintUsage()
-{
-    printf("soscheme.exe <command> <args>\n");
-    printf("schemes                 Display all available overlay schemes.\n");
-    printf("set <scheme>            Set the overlay scheme to <scheme>. <scheme> is\n"
-        "                        the name of the scheme.\n");
-    printf("start <scheme>			Set the overlay scheme persistently.\n");
-    printf("change <scheme>         Change the persistent overlay scheme.\n");
-    printf("stop                    Reset the overlay scheme to the previous scheme.\n");
-}
+}
