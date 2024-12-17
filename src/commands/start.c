@@ -63,7 +63,7 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
     sa.bInheritHandle = TRUE;
 
     s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME);
-   
+        SOS_REPORT_WIN32_ERROR();
     SOS_HALT_IF_NULL(s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME),
         SOS_REPORT_HR_ERROR(SOS_E_WIN32);
         SOS_LOG_ERROR("CreateEventA failed: %s.", SOS_LAST_ERROR_MESSAGE);
@@ -83,7 +83,7 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
         0,
         SOS_SHARED_MEMORY_SIZE,
         SOS_FILE_MAPPING_OBJECT_NAME),
-        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_REPORT_WIN32_ERROR();
         SOS_LOG_ERROR("CreateFileMapping failed: %s.", SOS_LAST_ERROR_MESSAGE);
         );
 
@@ -93,14 +93,13 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
         return EXIT_SUCCESS;
     }
      
-
     SOS_HALT_IF_NULL(pSharedMemoryBuffer = MapViewOfFile(
         s_hFileMappingObject, // handle to map object
         FILE_MAP_ALL_ACCESS,  // read/write permission
         0,
         0,
         SOS_SHARED_MEMORY_SIZE),
-        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_REPORT_WIN32_ERROR();
         SOS_LOG_ERROR("MapViewOfFile failed: %s.", SOS_LAST_ERROR_MESSAGE);
         CloseHandle(s_hFileMappingObject);
         ); 
@@ -108,7 +107,7 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
     _tcscpy_s((TCHAR*)pSharedMemoryBuffer, SOS_SHARED_MEMORY_SIZE, persistentSchemeMoniker);
     
     SOS_HALT_IF_NULL(hInstanceHandle = GetModuleHandleA(NULL),
-        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_REPORT_WIN32_ERROR();
         SOS_LOG_ERROR("GetModuleHandleA failed: %s.", SOS_LAST_ERROR_MESSAGE);
         );
 
@@ -139,7 +138,7 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
         TRUE, // Inherit the handles.
         CREATE_NEW_CONSOLE, // Allocate a new console object for the child.
         NULL, NULL, &s_startupInfo, &s_processInfo),
-        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+        SOS_REPORT_WIN32_ERROR();
         SOS_LOG_ERROR("CreateProcessA failed: %s.", SOS_LAST_ERROR_MESSAGE););
     
     CloseHandle(s_processInfo.hProcess);
