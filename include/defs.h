@@ -34,6 +34,8 @@
 
 #if defined(SOS_SHARED_LIB)
 #   define SOS_API          __declspec(dllexport)
+#elif defined(SOS_STATIC_LIB) || defined(SOS_EXECUTABLE)
+#   define SOS_API          
 #else
 #   define SOS_API          __declspec(dllimport)
 #endif
