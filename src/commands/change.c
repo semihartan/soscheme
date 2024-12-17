@@ -31,7 +31,7 @@
 #include "log.h"
 #include "util.h"
 
-int ProcessCommandChange(int argc, const char* argv[])
+//change <scheme>         Change the persistent overlay scheme.
 int ProcessCommandChange(int argc, const TCHAR* argv[])
 {
 	HRESULT hr = S_OK;
