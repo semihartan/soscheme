@@ -26,7 +26,8 @@
 
 #include "soserror.h"
 
-#define MESSAGE_BUFFER_SZ	0xFFF
+#define MESSAGE_BUFFER_SZ	0xFFFF
+#define MESSAGE_BUFFER_SZ	0xFFFF
 
 static TCHAR s_messageBuffer[MESSAGE_BUFFER_SZ + 1];
 
@@ -40,12 +41,7 @@ const TCHAR* SosGetErrorMessage(HRESULT _ErrorCode)
 	return cbChars == 0 ? _T("FormatMessage failed.") : s_messageBuffer;
 }
 
-const wchar_t* SosGetSystemErrorMessage(DWORD dwErrorCode)
+const TCHAR* SosGetErrnoMessage(int _Errno)
 {
-	return GetErrorMessageCore(dwErrorCode, true);
-}
-
-const wchar_t* SosGetApplicationErrorMessage(HRESULT _ErrorCode)
-{
-	return GetErrorMessageCore(_ErrorCode, false);
+	return _tcserror_s(s_messageBuffer, MESSAGE_BUFFER_SZ + 1, _Errno) < 0 ? _T("_tcserror_s failed.") : s_messageBuffer;
 }
