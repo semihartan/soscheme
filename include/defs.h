@@ -32,9 +32,9 @@
 
 #define SOS_SHARED_MEMORY_SIZE	(256 * sizeof(TCHAR))
 
-#if defined(SOS_SHARED_TIB)
+#if defined(SOS_SHARED_LIB)
 #   define SOS_API          __declspec(dllexport)
-#elif defined(SOS_STATIC_TIB) || defined(SOS_EXECUTABLE)
+#elif defined(SOS_STATIC_LIB) || defined(SOS_EXECUTABLE)
 #   define SOS_API          
 #else
 #   define SOS_API          __declspec(dllimport)
@@ -86,9 +86,6 @@
 #define SOS_REPORT_ERROR(hr)                printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
 #define SOS_REPORT_WIN32_ERROR()            printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(SOS_E_WIN32))
 #define SOS_REPORT_HR_ERROR()               printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
-
-#define SOS_IF_ERROR_SUCCESS(x)	            (ERROR_SUCCESS == (x))
-#define SO_IF_TRUE(x)	                    (TRUE == (x))
 
 #define _SOS_HANDLE_ERROR(cond, stm, ret, ...)	    \
 do {                                                \
