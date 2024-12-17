@@ -39,7 +39,7 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 	PVOID s_pSharedMemoryBuffer = NULL; 
 
 	UNREFERENCED_PARAMETER(argc);
-	
+
 	if (argc != 2)
 		return EXIT_INVALID_SYNTAX;
 
