@@ -111,14 +111,8 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
         SOS_LOG_ERROR("GetModuleHandleA failed: %s.", SOS_LAST_ERROR_MESSAGE);
         );
 
-    SOS_HALT_IF((retSize = GetModuleFileNameA(hInstanceHandle, s_moduleFilePathBuffer, MAX_PATH)) <= 0,
+    executableFilePath = GetExecutableFilePath();
     _stprintf_s(s_commandLineBuffer, MAX_PATH, _T("soscheme persistent %s"), persistentSchemeMoniker);
-        SOS_LOG_ERROR("GetModuleFileNameA failed: %s.", SOS_LAST_ERROR_MESSAGE);
-        _get_pgmptr(&pgmptr);
-        executableFilePath = pgmptr;
-        );
-     
-    sprintf_s(s_commandLineBuffer, MAX_PATH, "soscheme persistent %s", persistentSchemeMoniker);
 
     /*
     * An important point.
