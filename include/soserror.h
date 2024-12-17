@@ -129,10 +129,6 @@ extern void* AuxErrorData;
  */
 const TCHAR* SosGetErrorMessage(HRESULT _ErrorCode);
 
-/**
- * @brief Retrieves the error message for applicataion-defined error code, formatted using FormatMessageW.
- * @return The descriptive application error message.
- */
-const wchar_t* SosGetApplicationErrorMessage(HRESULT _ErrorCode);
+const TCHAR* SosGetErrnoMessage(int _Errno);
 
 #endif // SOS_ERROR_H
