@@ -68,3 +68,28 @@ const TCHAR* SosConvertGuidToString(const GUID* const _guid)
 
 	return (const TCHAR*)guidStringBuffer;
 }
+
+const TCHAR* GetExecutableFilePath()
+{
+	static TCHAR s_moduleFilePathBuffer[MAX_PATH + 1];
+	HMODULE hInstanceHandle = NULL;
+	const TCHAR* executableFilePath = NULL;
+
+	SOS_RETURN_IF_NULL(hInstanceHandle = GetModuleHandleA(NULL),
+		NULL,
+		SOS_LOG_ERROR("GetModuleHandleA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+		);
+
+#pragma warning(push)
+#pragma warning(disable:4996)
+
+	if(GetModuleFileName(hInstanceHandle, s_moduleFilePathBuffer, MAX_PATH + 1) <= 0)
+	{
+		SOS_LOG_ERROR("GetModuleFileNameA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+		executableFilePath = _tpgmptr;	
+	}
+	executableFilePath = s_moduleFilePathBuffer;
+#pragma warning(pop)
+	return executableFilePath;
+}
+
