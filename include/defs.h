@@ -78,13 +78,14 @@
 #   define SOS_ASSERT(expr, ret, ...)    assert(expr)
 #endif
 
-#define SOS_LAST_ERROR_MESSAGE              SosGetSystemErrorMessage(GetLastError())
-#define SOS_HR_ERROR_MESSAGE(hr)            SosGetSystemErrorMessage(hr)
-#define SOS_APP_ERROR_MESSAGE(hr)           SosGetApplicationErrorMessage(hr)
-#define SOS_ERROR_MESSAGE           "An error ocurred.\nError: %s"
-#define SOS_REPORT_LAST_ERROR()     printe(SOS_ERROR_MESSAGE, SOS_LAST_ERROR_MESSAGE)
-#define SOS_REPORT_HR_ERROR(hr)     printe(SOS_ERROR_MESSAGE, SOS_HR_ERROR_MESSAGE(hr))
-#define SOS_REPORT_APP_ERROR()      printe(SOS_ERROR_MESSAGE, SOS_APP_ERROR_MESSAGE(hr))
+#define SOS_LAST_ERROR_MESSAGE              SosGetErrorMessage(GetLastError())
+#define SOS_HRESULT_MESSAGE(hr)             SosGetErrorMessage(hr)
+#define SOS_ERRNO_MESSAGE                   SosGetErrnoMessage(errno)
+#define SOS_ERROR_MESSAGE_FORMAT            "An error ocurred.\nError: %s"
+#define SOS_REPORT_LAST_ERROR()             printe(SOS_ERROR_MESSAGE_FORMAT, SOS_LAST_ERROR_MESSAGE)
+#define SOS_REPORT_ERROR(hr)                printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
+#define SOS_REPORT_WIN32_ERROR()            printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(SOS_E_WIN32))
+#define SOS_REPORT_HR_ERROR()               printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
 
 #define SOS_IF_ERROR_SUCCESS(x)	(ERROR_SUCCESS == (x))
 #define SO_IF_TRUE(x)	        (TRUE == (x))
