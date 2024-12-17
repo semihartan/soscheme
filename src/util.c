@@ -25,6 +25,8 @@
 #include <pch.h>
 
 #include "util.h"
+#include "soserror.h"
+#include "log.h"
 
 bool SosIsGuidEmpty(const GUID* pGuid)
 {
@@ -52,7 +54,7 @@ const TCHAR* SosConvertGuidToString(const GUID* const _guid)
 {
 	static OLECHAR guidStringBuffer[GUID_BUFFER_SZ];
 	// Convert the GUID into string. 
-	// No need to check the return value coz we provide a buffer of required size. 
+	// No need to check the return value cuz we provide a buffer of required size. 
 	(void)StringFromGUID2(_guid, guidStringBuffer, GUID_BUFFER_SZ);
 	// Trim the curly braces.
 	wmemcpy(guidStringBuffer, (const wchar_t*)(guidStringBuffer + 1), GUID_WO_BRACES_SZ);
