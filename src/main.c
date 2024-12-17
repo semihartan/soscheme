@@ -35,6 +35,8 @@
 #include "change.h"
 #include "stop.h"
 #include "persistent.h"
+#include "help.h"
+#include "install.h"
 
 #pragma comment(lib, "powrprof.lib")
 
@@ -58,22 +60,20 @@ static struct {
      __T("persistent"),  __T(""), ProcessCommandPersistent,
 };
  
-static void PrintUsage();
-
 /**
- * setoscheme is a command line tool for managing power overlay schemes on Windows 10/11.
+ * Description: setoscheme is a command line tool for managing power overlay schemes on Windows 10/11.
  * It allows to query and set temporary/permanent schemes available on the system.
- * soscheme.exe <command> <args>
+ * Usage: soscheme.exe <command> <args>
+ * --help, -h   						Prints this help message.
  * schemes								Display all available overlay schemes.
  * set <scheme>							Set the active scheme to <scheme>. <scheme> is 
  *										the alias or GUID of the scheme.
  * start <scheme>						Set the scheme persistently.
  * stop				    				Reset the scheme to the previous one.
- * install                              Installs itself into the desired location and 
+ * install <path>                       Installs itself into the desired location and 
  *                                      modifies the PATH var accordingly.
  * internal args:
- * soscheme persistent start <scheme>
- * soscheme persistent stop
+ * soscheme persistent
  */
 int _tmain(int argc, const TCHAR* argv[])
 {
