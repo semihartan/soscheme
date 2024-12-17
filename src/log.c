@@ -24,6 +24,8 @@
 
 #include <pch.h>
 
+#if !defined(SOS_STATIC_LIB) && !defined(SOS_SHARED_LIB)
+
 #include "log.h"
 
 #define LOG_FILE_NAME		_T("soscheme.log")
@@ -41,3 +43,5 @@ void SosLog(const TCHAR* _File, const TCHAR* _Function, uint32_t _Line, const TC
 	va_end(ap);
 	fclose(logFile);
 }
+
+#endif
