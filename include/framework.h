@@ -14,6 +14,7 @@
 #include <powerbase.h>
 #include <powersetting.h>
 #include <shellapi.h>
+#include <shlwapi.h>
 #include <Objbase.h>
 
 // C RunTime Header Files
@@ -29,6 +30,7 @@
 #include <errno.h>
 #include <assert.h>
 #include <string.h> 
+#include <time.h> 
 
 #include <malloc.h>
 #include <memory.h>
