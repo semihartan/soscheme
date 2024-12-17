@@ -48,6 +48,7 @@ int ProcessCommandChange(int argc, const TCHAR* argv[])
 		FALSE,					// no need to inherit the handle
 		SOS_FILE_MAPPING_OBJECT_NAME),
 		SOS_REPORT_HR_ERROR(SOS_E_WIN32);
+		SOS_REPORT_WIN32_ERROR();
 		SOS_LOG_ERROR("OpenFileMappingA failed: %s.", SOS_LAST_ERROR_MESSAGE););
 
 	SOS_HALT_IF_NULL(s_pSharedMemoryBuffer = MapViewOfFile(
