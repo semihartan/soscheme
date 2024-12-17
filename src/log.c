@@ -33,10 +33,18 @@
 void SosLog(const TCHAR* _File, const TCHAR* _Function, uint32_t _Line, const TCHAR* _Format, ...)
 {
 	static TCHAR timeBuffer[26];
-	const wchar_t* fileName = wcsrchr(_File, L'\\');
-	fwprintf(logFile, L"%s(%u), %s: ", ++fileName, _Line, _Function);
+	static struct tm tm;
+	time_t rawTime;
+
 	FILE* logFile = _tfopen(LOG_FILE_NAME, _T("a, ccs=UTF-16LE"));
 	const TCHAR* fileName = _tcsrchr(_File, _T('\\'));
+
+	time(&rawTime);
+	localtime_s(&tm, &rawTime);
+	_tasctime_s(timeBuffer, 26, &tm);
+	timeBuffer[24] = _T('\0');
+	_ftprintf(logFile, _T("(%s) %s(%u), %s: "), timeBuffer, ++fileName, _Line, _Function);
+
 	va_list ap;
 	va_start(ap, _Format);
 	_vftprintf_s(logFile, _Format, ap);
