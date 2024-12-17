@@ -57,6 +57,7 @@ const TCHAR* sosstring_ContainsStrings(const TCHAR* _String, size_t _CountString
 		if ((ret = _tcsstr(strLowerCase, lowerCase), free(lowerCase), ret))
 			break;
 	}
+	va_end(ap);
 	free(strLowerCase);
 	return ret;
 }
