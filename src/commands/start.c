@@ -24,7 +24,7 @@
 
 #include <pch.h>
 
-#include "start.h" 
+#include "start.h"
 
 #include "oscheme.h"
 #include "soserror.h"
@@ -32,20 +32,18 @@
 #include "log.h"
 
 #define MSG_APPLICATION_RUNNING     "One instance of the application already exists.\n"
-
+ 
 static TCHAR s_commandLineBuffer[MAX_PATH];
-static char s_commandLineBuffer[MAX_PATH];
 
 static HANDLE s_hProcessKillEvent = NULL;
 static HANDLE s_hFileMappingObject = NULL;
 
-static STARTUPINFOA s_startupInfo;
+static STARTUPINFO s_startupInfo;
 static PROCESS_INFORMATION s_processInfo;
 
 //"start <scheme>			Set the overlay scheme persistently.\n");
 int ProcessCommandStart(int argc, const TCHAR* argv[])
 {
-    HRESULT hr;
     PVOID pSharedMemoryBuffer;
     const TCHAR* persistentSchemeMoniker = argv[1];
     HMODULE hInstanceHandle;
@@ -61,12 +59,10 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
     sa.nLength = sizeof(SECURITY_ATTRIBUTES);
     sa.lpSecurityDescriptor = NULL;
     sa.bInheritHandle = TRUE;
-
-    s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME);
+   
+    SOS_HALT_IF_NULL(s_hProcessKillEvent = CreateEvent(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME),
         SOS_REPORT_WIN32_ERROR();
-    SOS_HALT_IF_NULL(s_hProcessKillEvent = CreateEventA(&sa, FALSE, FALSE, SOS_PROCESS_KILL_EVENT_NAME),
-        SOS_REPORT_HR_ERROR(SOS_E_WIN32);
-        SOS_LOG_ERROR("CreateEventA failed: %s.", SOS_LAST_ERROR_MESSAGE);
+        SOS_LOG_ERROR("CreateEvent failed: %s.", SOS_LAST_ERROR_MESSAGE);
         );
     
     if (GetLastError() == ERROR_ALREADY_EXISTS)
@@ -103,14 +99,14 @@ int ProcessCommandStart(int argc, const TCHAR* argv[])
         SOS_LOG_ERROR("MapViewOfFile failed: %s.", SOS_LAST_ERROR_MESSAGE);
         CloseHandle(s_hFileMappingObject);
         ); 
-
+    
     _tcscpy_s((TCHAR*)pSharedMemoryBuffer, SOS_SHARED_MEMORY_SIZE, persistentSchemeMoniker);
     
     SOS_HALT_IF_NULL(hInstanceHandle = GetModuleHandleA(NULL),
         SOS_REPORT_WIN32_ERROR();
         SOS_LOG_ERROR("GetModuleHandleA failed: %s.", SOS_LAST_ERROR_MESSAGE);
         );
-
+    
     executableFilePath = GetExecutableFilePath();
     _stprintf_s(s_commandLineBuffer, MAX_PATH, _T("soscheme persistent %s"), persistentSchemeMoniker);
 
