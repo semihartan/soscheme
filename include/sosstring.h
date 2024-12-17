@@ -29,8 +29,6 @@
 
 #include <pch.h>
 
-SOS_BEGIN
-
 #define SOSSTRING_MAGIC			'RTSSOS'
 #define SOSSTRING_LEN(str)		*(size_t*)((char*)(str) - sizeof(size_t))
 
@@ -40,6 +38,5 @@ typedef const wchar_t* sosstring_t;
 
 const TCHAR* sosstring_ContainsStrings(const TCHAR* _String, size_t _CountStrings, ...);
 
-SOS_END
 
 #endif
