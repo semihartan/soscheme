@@ -30,7 +30,7 @@
 #include "soserror.h"
 #include "util.h"
 
-int ProcessCommandSchemes(int argc, const char* argv[])
+//"schemes                 Display all available overlay schemes.\n");
 int ProcessCommandSchemes(int argc, const TCHAR* argv[])
 {
 	HRESULT hr = S_OK;
@@ -42,10 +42,10 @@ int ProcessCommandSchemes(int argc, const TCHAR* argv[])
 	UNREFERENCED_PARAMETER(argv);
 	
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_GetActiveScheme(&activeScheme),
-		SOS_REPORT_APP_ERROR(););
+		SOS_REPORT_HR_ERROR(););
 
 	SOS_HALT_IF_FAILED(hr = SosOverlayScheme_GetSchemes(&overlaySchemes, &count),
-		SOS_REPORT_APP_ERROR(););
+		SOS_REPORT_HR_ERROR(););
 
 	puts("[");
 	for (size_t i = 0; i < count; i++)
