@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #ifndef OVERLAY_SCHEME_H
