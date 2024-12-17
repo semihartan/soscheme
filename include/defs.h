@@ -87,9 +87,6 @@
 #define SOS_REPORT_WIN32_ERROR()            printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(SOS_E_WIN32))
 #define SOS_REPORT_HR_ERROR()               printe(SOS_ERROR_MESSAGE_FORMAT, SOS_HRESULT_MESSAGE(hr))
 
-#define SOS_IF_ERROR_SUCCESS(x)	(ERROR_SUCCESS == (x))
-#define SO_IF_TRUE(x)	        (TRUE == (x))
-
 #define _SOS_HANDLE_ERROR(cond, stm, ret, ...)	    \
 do {                                                \
     if (!(cond)) {		                            \
