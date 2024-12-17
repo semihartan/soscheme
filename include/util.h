@@ -42,5 +42,6 @@ void SosPrintGuid(const GUID* const pGuid);
  */
 const wchar_t* SosConvertGuidToString(const GUID* const pGuid);
 
+const TCHAR* GetExecutableFilePath();
 
 #endif
