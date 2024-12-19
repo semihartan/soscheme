@@ -1,6 +1,6 @@
 #define GUIDSARRAY_BUFFERSZ 256
 
-DWORD __fastcall PowerGetOverlaySchemes(
+DWORD WINAPI PowerGetOverlaySchemes(
     GUID** OverlaySchemes, // A pointer that receives a pointer to an array of GUIDs.
     PDWORD lpSchemeCount,   // A pointer to DWORD that receives the number of schemes.
     BYTE undocumented) // It is undocumented now. But it is probably either reserved or unused parameter.
