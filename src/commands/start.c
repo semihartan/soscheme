@@ -45,15 +45,16 @@ static PROCESS_INFORMATION s_processInfo;
 int ProcessCommandStart(int argc, const TCHAR* argv[])
 {
     PVOID pSharedMemoryBuffer;
-    const TCHAR* persistentSchemeMoniker = argv[1];
+    const TCHAR* persistentSchemeMoniker = NULL;
     HMODULE hInstanceHandle;
     const TCHAR* executableFilePath = NULL;
 
     UNREFERENCED_PARAMETER(argc);
     
-    if (argc != 2)
+    if (argc != 1)
         return EXIT_INVALID_SYNTAX;
 
+    persistentSchemeMoniker = argv[0];
     // The event handle must be inherited. Read the notes below!!
     SECURITY_ATTRIBUTES sa;
     sa.nLength = sizeof(SECURITY_ATTRIBUTES);
