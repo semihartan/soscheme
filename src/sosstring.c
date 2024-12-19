@@ -49,7 +49,7 @@ const TCHAR* sosstring_ContainsStrings(const TCHAR* _String, size_t _CountString
 	va_start(ap, _CountStrings);
 	for (size_t i = 0; i < _CountStrings; i++)
 	{
-		const TCHAR* str = va_arg(ap, wchar_t*);
+		const TCHAR* str = va_arg(ap, const TCHAR*);
 
 		SOS_RETURN_IF_NULL(ret = _tcsdup(str), ret);
 		
