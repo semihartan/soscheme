@@ -43,9 +43,9 @@
 // Define the severity codes
 //
 #define SOS_SEVERITY_SUCCESS             0x0
-#define SOS_SEVERITY_INFORMATIONAL       0x2
-#define SOS_SEVERITY_WARNING             0x3
-#define SOS_SEVERITY_ERROR               0x1
+#define SOS_SEVERITY_INFORMATIONAL       0x1
+#define SOS_SEVERITY_WARNING             0x2
+#define SOS_SEVERITY_ERROR               0x3
 
 
 //
@@ -55,7 +55,7 @@
 //
 // Failed to query the overlay schemes available on the system.
 //
-#define SOS_E_QUERY_SCHEMES              ((HRESULT)0x60040001L)
+#define SOS_E_QUERY_SCHEMES              ((HRESULT)0xE0040001L)
 
 //
 // MessageId: SOS_E_REGOPEN
@@ -64,7 +64,7 @@
 //
 // Failed to open the registry key.
 //
-#define SOS_E_REGOPEN                    ((HRESULT)0x60040002L)
+#define SOS_E_REGOPEN                    ((HRESULT)0xE0040002L)
 
 //
 // MessageId: SOS_E_REGGET
@@ -73,7 +73,7 @@
 //
 // Failed to get the registry key value.
 //
-#define SOS_E_REGGET                     ((HRESULT)0x60040003L)
+#define SOS_E_REGGET                     ((HRESULT)0xE0040003L)
 
 //
 // MessageId: SOS_E_GET_SCHEME
@@ -82,7 +82,7 @@
 //
 // Failed to get the active scheme.
 //
-#define SOS_E_GET_SCHEME                 ((HRESULT)0x60040004L)
+#define SOS_E_GET_SCHEME                 ((HRESULT)0xE0040004L)
 
 //
 // MessageId: SOS_E_SET_SCHEME
@@ -91,7 +91,7 @@
 //
 // Failed to set the active scheme.
 //
-#define SOS_E_SET_SCHEME                 ((HRESULT)0x60040005L)
+#define SOS_E_SET_SCHEME                 ((HRESULT)0xE0040005L)
 
 //
 // MessageId: SOS_E_SCHEMEATTR
@@ -100,7 +100,7 @@
 //
 // Failed to set the scheme attribute.
 //
-#define SOS_E_SCHEMEATTR                 ((HRESULT)0x60040006L)
+#define SOS_E_SCHEMEATTR                 ((HRESULT)0xE0040006L)
 
 //
 // MessageId: SOS_E_UNINITIALIZED
@@ -109,7 +109,7 @@
 //
 // OverlayScheme_init was not called.
 //
-#define SOS_E_UNINITIALIZED              ((HRESULT)0x60040007L)
+#define SOS_E_UNINITIALIZED              ((HRESULT)0xE0040007L)
 
 //
 // MessageId: SOS_E_INVALID
@@ -118,7 +118,7 @@
 //
 // Invalid scheme or alias.
 //
-#define SOS_E_INVALID                    ((HRESULT)0x60040008L)
+#define SOS_E_INVALID                    ((HRESULT)0xE0040008L)
 
 //
 // MessageId: SOS_E_WIN32
@@ -127,7 +127,7 @@
 //
 // An internal system error ocurred. Look at the log file for more details.
 //
-#define SOS_E_WIN32                      ((HRESULT)0x60040009L)
+#define SOS_E_WIN32                      ((HRESULT)0xE0040009L)
 
 //
 // MessageId: SOS_E_INVALID_DIR
@@ -136,7 +136,7 @@
 //
 // The system cannot find the path specified, or the path is not a directory.
 //
-#define SOS_E_INVALID_DIR                ((HRESULT)0x6004000AL)
+#define SOS_E_INVALID_DIR                ((HRESULT)0xE004000AL)
 
 //
 // MessageId: SOS_E_CREATE_DIR
@@ -145,5 +145,5 @@
 //
 // Couldn't create the directory or file.
 //
-#define SOS_E_CREATE_DIR                 ((HRESULT)0x6004000BL)
+#define SOS_E_CREATE_DIR                 ((HRESULT)0xE004000BL)
 
