@@ -8,7 +8,7 @@
 
 I've created this tool because the system control software (*Armoury Crate*) on my laptop changes the Windows power overlay scheme each time I choose a different profile on it. Armoury Crate on my device has four profiles: Windows, Quite, Performance and Turbo. When I switch to either Performance and Turbo, it automatically sets Windows overlay scheme as `Best Performance`. This causes your system to consume more power than required.
 
-Then I started searching the internet and scanning `Win32` API, and I have discovered that Windows Power API has a nice API for detecting overlay scheme changes. The function is `PowerRegisterForEffectivePowerModeNotifications`. Other APIs I have used, which are undocumented are `PowerSetActiveOverlayScheme` to set the active overlay scheme, `PowerGetActualOverlayScheme` to retrieve the active scheme, and finally `PowerGetOverlaySchemes` to query the available overlay schemes on the system.
+Then I started searching the internet and scanning `Win32` API, and I have discovered that Windows Power API has a nice API for detecting overlay scheme changes. The function is `PowerRegisterForEffectivePowerModeNotifications`. Other APIs I have used, which are undocumented are PowerSetActiveOverlayScheme` to set the active overlay scheme, `PowerGetActualOverlayScheme` to retrieve the active scheme, and finally `PowerGetOverlaySchemes` to query the available overlay schemes on the system.
 
 The first two functions was documented in a Stackoverflow post, but the last one was undocumented. I have done a bit reverse-engineering on it, and documented its first two parameters. The functions signature is as follows:
 
@@ -61,7 +61,7 @@ You don't need to call this script from a Developer Command Prompt. It automatic
 For example, to build the software as an ARM debug executable call the script as the following.
 
 ```
-> build.bat --arch=arm --config=Debug.
+> build.bat --arch=arm --config=Debug
 ```
 
 To build a x86 debug static library, invoke the script as below.
