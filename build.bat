@@ -10,6 +10,39 @@ set __SOS_BUILD=1
 set __SOS_REBUILD=
 set __SOS_CONFIG=Release
 set __SOS_HELP=
+set __SOS_ALL=
+set __SOS_BUILD_CONFIG=
+set __SOS_BUILD_CONFIG_ARCH=
+set __SOS_BUILD_CONFIG_OUT=
+set __SOS_BUILD_CONFIG_TYPE=
+
+set "__SOS_ALL_BUILD_CONFIGS=x86 exe Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x86 exe Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x86 dll Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x86 dll Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x86 lib Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x86 lib Release"
+
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 exe Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 exe Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 dll Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 dll Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 lib Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; x64 lib Release"
+
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm exe Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm exe Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm dll Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm dll Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm lib Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm lib Release"
+
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 exe Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 exe Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 dll Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 dll Release"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 lib Debug"
+set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 lib Release"
 
 :check_installation
 set __SOS_VSInstallationDir=
@@ -57,13 +90,91 @@ if "%SOS_DEBUG%" GEQ "1" (
 	echo "__SOS_PARSE_ERROR=%__SOS_PARSE_ERROR%"
 	echo "__SOS_HELP=%__SOS_HELP%"
 )
-
 if "%__SOS_PARSE_ERROR%" NEQ "0" goto :usage_error
 if "%__SOS_HELP%" NEQ "" goto :usage
+
+if "%__SOS_ALL%"=="" (
+	goto :assemble_vscmdargs
+)
+
+:build_all
+
+echo Building all...
+echo:
+
+set __SOS_BUILD=1
+set __SOS_REBUILD=0
+set __SOS_CLEAN=0
+
+setlocal enabledelayedexpansion
+
+:parse_configs_loop
+for /f "tokens=1,* delims=;" %%A in ("!__SOS_ALL_BUILD_CONFIGS!") do (
+	echo In parse_configs_loop 
+	set __SOS_BUILD_CONFIG=%%A
+	echo __SOS_BUILD_CONFIG=!__SOS_BUILD_CONFIG!
+	
+	call :parse_config_loop
+	
+	set __SOS_TARGET_ARCH=!__SOS_BUILD_CONFIG_ARCH!
+	set __SOS_CONFIG=!__SOS_BUILD_CONFIG_TYPE!
+	if /I "!__SOS_BUILD_CONFIG_OUT!"=="lib" (
+		set __SOS_STATIC_LIB=1
+		set __SOS_SHARED_LIB=
+		echo Building static library...
+	) else (
+		if /I "!__SOS_BUILD_CONFIG_OUT!"=="dll" (
+			set __SOS_STATIC_LIB=
+			set __SOS_SHARED_LIB=1
+			echo Building shared library...
+		) else (
+			set __SOS_STATIC_LIB=
+			set __SOS_SHARED_LIB=
+			echo Building executable...
+		)
+	)
+	echo Target Architecture=!__SOS_TARGET_ARCH!
+	echo Config=!__SOS_CONFIG!
+	echo:
+	call :assemble_vscmdargs
+	
+	set __SOS_ALL_BUILD_CONFIGS=%%B
+	goto :parse_configs_loop
+)
+
+goto :parse_configs_end
+
+:parse_config_loop
+for /f "tokens=1,*" %%C in ("!__SOS_BUILD_CONFIG!") do (
+	if /I "%%C"=="x86"     (set __SOS_BUILD_CONFIG_ARCH=%%C)
+	if /I "%%C"=="x64"     (set __SOS_BUILD_CONFIG_ARCH=%%C)
+	if /I "%%C"=="arm"     (set __SOS_BUILD_CONFIG_ARCH=%%C)
+	if /I "%%C"=="arm64"   (set __SOS_BUILD_CONFIG_ARCH=%%C)
+
+	if /I "%%C"=="exe"     (set __SOS_BUILD_CONFIG_OUT=%%C)
+	if /I "%%C"=="dll"     (set __SOS_BUILD_CONFIG_OUT=%%C)
+	if /I "%%C"=="lib"     (set __SOS_BUILD_CONFIG_OUT=%%C)
+
+	if /I "%%C"=="debug"   (set __SOS_BUILD_CONFIG_TYPE=%%C)
+	if /I "%%C"=="release" (set __SOS_BUILD_CONFIG_TYPE=%%C)
+
+	set __SOS_BUILD_CONFIG=%%D
+	goto :parse_config_loop
+)
+
+exit /B 0
+
+:parse_configs_end
+exit /B 0
+
+endlocal
 
 :convert_args_case
 if /I "%__SOS_TARGET_ARCH%"=="x86" (
 	set __SOS_TARGET_ARCH=x86
+)
+if /I "%__SOS_TARGET_ARCH%"=="x86" (
+	set __SOS_TARGET_ARCH=win32
 )
 if /I "%__SOS_TARGET_ARCH%"=="x64" (
 	set __SOS_TARGET_ARCH=amd64
@@ -78,6 +189,9 @@ if /I "%__SOS_TARGET_ARCH%"=="arm64" (
 	set __SOS_TARGET_ARCH=arm64
 )
 if /I "%__SOS_HOST_ARCH%"=="x86" (
+	set __SOS_HOST_ARCH=x86
+)
+if /I "%__SOS_HOST_ARCH%"=="win32" (
 	set __SOS_HOST_ARCH=x86
 )
 if /I "%__SOS_HOST_ARCH%"=="x64" (
@@ -139,6 +253,11 @@ if /I "%__SOS_REBUILD%"=="1" (
 		)
 	)
 )
+REM if !ERRORLEVEL! NEQ 0 (
+REM	echo Build failed.
+REM	echo Exiting...
+REM	exit 1
+REM )
 
 exit /B 0
 
@@ -149,7 +268,7 @@ for /F "tokens=1,* delims= " %%a in ("%__SOS_ARGS_LIST%") do (
     set "__SOS_ARGS_LIST=%%b"
     goto :parse_loop
 )
-
+:parse_end
 exit /B 0
 
 :parse_argument
@@ -160,6 +279,11 @@ exit /B 0
 set __local_ARG_FOUND=0
 @REM Architecture
 
+if /I "%1"=="all" (
+	set __SOS_ALL=1
+	set __local_ARG_FOUND=1
+	goto :parse_end
+)
 if /I "%1"=="-arch" (
 	goto :parse_arch_opt
 )
