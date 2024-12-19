@@ -1,5 +1,7 @@
 # soscheme (Set Power Overlay Schemes)
 
+## Description
+
 **soscheme** is a simple tool that allows to set transient/persistent power overlay schemes, query and report them with JSON output.
 
 ## Motivation
@@ -19,3 +21,8 @@ DWORD WINAPI PowerGetOverlaySchemes(
 
 The file `include\upowr.dis.h` includes the entire reverse-engineered function.
 
+## How to Build
+
+To build the tool, make sure you have at least "Desktop development with C++ workload" installed by either installing Visual Studio IDE, or [Build Tools for Visual Studio](buildtools) as a standalone package. 
+
+[buildtools]: (https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022)
