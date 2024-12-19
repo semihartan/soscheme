@@ -52,11 +52,9 @@ int ProcessCommandSchemes(int argc, const TCHAR* argv[])
 	{
 		OverlayScheme_t os = overlaySchemes[i];
 
-		printf("\"%s\":\n{\n  ", os.alias);
+		printf("{\n  \"name\": \"%s\",\n", os.alias);
 
-		printf("  \"GUID\": ");
-		SosPrintGuid(&overlaySchemes[i].guid);
-		puts(",");
+		printf("  \"GUID\": \"%s\",\n", SosConvertGuidToString(&overlaySchemes[i].guid));
 		bool isActive = memcmp(&overlaySchemes[i].guid, &os.guid, sizeof(GUID)) == 0;
 
 		printf("  \"friendlyName\":  \"%s\",\n", os.friendlyName);
