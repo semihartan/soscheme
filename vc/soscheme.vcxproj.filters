@@ -82,6 +82,7 @@
     <None Include="..\res\soserrors.mc">
       <Filter>res</Filter>
     </None>
+    <None Include="..\build.bat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\change.h">
@@ -145,6 +146,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\install.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\upowr.dis.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

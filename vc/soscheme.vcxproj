@@ -209,8 +209,10 @@
     <ClCompile Include="..\src\sosstring.c" />
     <ClCompile Include="..\src\upowr.c" />
     <ClCompile Include="..\src\util.c" />
+    <ClInclude Include="..\src\upowr.dis.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\build.bat" />
     <None Include="..\res\soserrors.mc" />
     <None Include="..\src\Makefile" />
     <None Include="..\Makefile" />
