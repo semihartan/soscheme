@@ -80,15 +80,15 @@ HRESULT SosOverlayScheme_GetActiveScheme(OverlayScheme_t** _activeScheme)
 {
 	HRESULT hr;
 	static GUID activeScheme;
-
+	
 	SOS_ASSERT(s_isInitialized, SOS_E_UNINITIALIZED);
 	SOS_ASSERT(_activeScheme != NULL, SOS_E_INVALID);
-
+	
 	/*SOS_RETURN_IF_NULL(activeScheme = (GUID*)LocalAlloc(LPTR, sizeof(GUID)),
 		E_OUTOFMEMORY,
 		SOS_LOG_ERROR("LocalAlloc failed: %s.\n", SOS_LAST_ERROR_MESSAGE););*/
 
-	SOS_RETURN_IF_NOT(SOS_IF_ERROR_SUCCESS(hr = PowerGetActualOverlayScheme(&activeScheme)),
+	SOS_RETURN_IFN_SUCCESS(hr = PowerGetActualOverlayScheme(&activeScheme),
 		SOS_E_GET_SCHEME,
 		SOS_LOG_ERROR("PowerGetActualOverlayScheme failed.\n"););
 
@@ -110,7 +110,8 @@ HRESULT SosOverlayScheme_SetActiveScheme(const OverlayScheme_t* _scheme)
 		SOS_E_INVALID,
 		SOS_LOG_ERROR("The scheme is not valid.\n"););
 
-	SOS_RETURN_IF_NOT(SOS_IF_ERROR_SUCCESS(hr = PowerSetActiveOverlayScheme(&_scheme->guid)), SOS_E_SET_SCHEME,
+	SOS_RETURN_IFN_SUCCESS(hr = PowerSetActiveOverlayScheme(&_scheme->guid), 
+		SOS_E_SET_SCHEME,
 		SOS_LOG_ERROR("PowerSetActiveOverlayScheme failed."););
 
 	return S_OK;
@@ -124,7 +125,7 @@ HRESULT SosOverlayScheme_SetActiveSchemeByGuid(const GUID* _guid)
 		SOS_E_INVALID,
 		SOS_LOG_ERROR("The scheme is not valid.\n"););
 
-	SOS_RETURN_IF_NOT(SOS_IF_ERROR_SUCCESS(hr = PowerSetActiveOverlayScheme(_guid)),
+	SOS_RETURN_IFN_SUCCESS(hr = PowerSetActiveOverlayScheme(_guid),
 		SOS_E_SET_SCHEME,
 		SOS_LOG_ERROR("PowerSetActiveOverlayScheme failed."););
 
@@ -144,7 +145,7 @@ HRESULT SosOverlayScheme_SetActiveSchemeByAlias(const TCHAR* _alias)
 
 		if (_tcscmp(s_overlaySchemes[i].alias, _alias) == 0)
 		{
-			SOS_RETURN_IF_NOT(SOS_IF_ERROR_SUCCESS(hr = PowerSetActiveOverlayScheme(schemeGuid)),
+			SOS_RETURN_IFN_SUCCESS(hr = PowerSetActiveOverlayScheme(schemeGuid),
 				SOS_E_SET_SCHEME,
 				SOS_LOG_ERROR("PowerSetActiveOverlayScheme failed."););
 			return S_OK;
@@ -176,10 +177,9 @@ static bool IsSchemeValid(const OverlayScheme_t* _scheme)
 
 static HRESULT GetPowerSchemeAttribute(HKEY _hkPowerScheme, const TCHAR* _AttrName, TCHAR* _Buffer)
 {
-	HRESULT result;
+	HRESULT hr;
 	DWORD pcbData = OS_NAME_BUF_SZ;
-	SOS_RETURN_IF_NOT(
-		SOS_IF_ERROR_SUCCESS(result = RegGetValue(_hkPowerScheme, NULL, _AttrName, RRF_RT_REG_SZ, NULL, _Buffer, &pcbData)),
+	SOS_RETURN_IFN_SUCCESS(hr = RegGetValue(_hkPowerScheme, NULL, _AttrName, RRF_RT_REG_SZ, NULL, _Buffer, &pcbData),
 		SOS_E_REGGET,
 		SOS_LOG_ERROR("RegGetValue(value=%s) failed: %s.", _AttrName, SOS_LAST_ERROR_MESSAGE);
 	);
