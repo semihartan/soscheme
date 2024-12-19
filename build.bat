@@ -48,7 +48,7 @@ set "__SOS_ALL_BUILD_CONFIGS=%__SOS_ALL_BUILD_CONFIGS%; arm64 lib Release"
 set __SOS_VSInstallationDir=
 set "__SOS_VSWhere=C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
 
-echo %__SOS_VSWhere%
+REM echo %__SOS_VSWhere%
 
 if exist "%__SOS_VSWhere%" (
     for /f "usebackq tokens=*" %%a in (`"%__SOS_VSWhere%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do ( 
@@ -56,7 +56,7 @@ if exist "%__SOS_VSWhere%" (
 	)
 )
 
-echo %__SOS_VSInstallationDir%
+REM echo %__SOS_VSInstallationDir%
 
 if "%__SOS_VSInstallationDir%"=="" (
 	if exist "C:\Program Files\Microsoft Visual Studio\2022\Community" (
@@ -69,11 +69,11 @@ if "%__SOS_VSInstallationDir%"=="" (
 		)
 	)
 )
-echo %__SOS_VSInstallationDir%
+REM echo %__SOS_VSInstallationDir%
 
 set "__SOS_VSDEVCMD=%__SOS_VSInstallationDir%\Common7\Tools\vsdevcmd.bat"
 
-echo %__SOS_VSDEVCMD%
+REM echo %__SOS_VSDEVCMD%
 
 if "%__SOS_VSDEVCMD%"=="" (
 	goto :missing
